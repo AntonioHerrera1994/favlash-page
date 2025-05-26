@@ -1,0 +1,61 @@
+---
+import '../styles/navbar.css'
+import ImageLogo from '../assets/favlash-lgo.png';
+---
+
+
+<div class="content" id="miDiv">
+  <div class="head-grid">
+
+    <div class="head-logo">
+      <img 
+      src={ImageLogo.src} 
+      width="1500" 
+      height="678"
+      alt="logo-vikingdev"
+      class="logo-img"/>
+    </div>
+
+    <div class="nav-links">
+      <div class="elementos-menu">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </div>  
+
+    <!-- <div class="socialmedia-navlinks">
+      <a><i class="bi bi-facebook"></i></a>
+      <a><i class="bi bi-linkedin"></i></a>
+      <a><i class="bi bi-whatsapp"></i></a> 
+    </div>-->
+
+
+      <div class="nav-links-grid">
+        
+        <div class="navlinks-logo">
+          <p>VikingDev</p>
+        </div>
+
+        <div class="close">
+          <i class="bi bi-x-lg"></i>
+      
+        </div>
+
+      </div>
+  
+    </div> 
+
+
+    <div class="hamburger">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </div>
+
+  </div>
+</div>
+
+<script>
+    import "../scripts/menu.js"
+</script>
