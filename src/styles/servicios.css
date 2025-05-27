@@ -1,0 +1,150 @@
+
+
+.servicios{
+    padding: 2rem 6rem 6rem 6rem;
+    margin: 0;
+}
+
+.serv-txt h2{
+    text-align: center;
+    font-family: "Syne", sans-serif;
+    text-transform: uppercase;
+}
+
+/********** Grid **********/
+
+.serv-grid{
+    display: grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap: 2rem;
+}
+
+/********** Grids **********/
+
+.sgrid-1{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.112);
+    padding: 3rem;
+}
+
+.sgrid-1 h3{
+    text-align: center;
+    font-family: "Syne", sans-serif;
+    text-transform: uppercase;
+}
+
+.sgrid-1 p{
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    color: rgba(0, 0, 0, 0.528);
+    font-size: 15px;
+}
+
+.citas-1{
+        background-color: black;
+        padding: 12px 22px 12px 22px;
+        text-align: center;
+        display: inline-block;
+        justify-content: center;
+        color: white;
+        font-family: "Roboto", sans-serif;
+        text-decoration: none;
+        border-radius: 8px;
+}
+
+.sgrid-2{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.112);
+    padding: 3rem;
+}
+
+.sgrid-2 h3{
+    text-align: center;
+    font-family: "Syne", sans-serif;
+    text-transform: uppercase;
+}
+
+.sgrid-2 p{
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    color: rgba(0, 0, 0, 0.528);
+    font-size: 15px;
+}
+
+.citas-2{
+        background-color: black;
+        padding: 12px 22px 12px 22px;
+        text-align: center;
+        display: inline-block;
+        justify-content: center;
+        color: white;
+        font-family: "Roboto", sans-serif;
+        text-decoration: none;
+        border-radius: 8px;
+}
+
+.sgrid-3{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.112);
+    padding: 3rem;
+}
+
+.sgrid-3 h3{
+    text-align: center;
+    font-family: "Syne", sans-serif;
+    text-transform: uppercase;
+}
+
+.sgrid-3 p{
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    color: rgba(0, 0, 0, 0.528);
+    font-size: 15px;
+}
+
+.citas-3{
+        background-color: black;
+        padding: 12px 22px 12px 22px;
+        text-align: center;
+        display: inline-block;
+        justify-content: center;
+        color: white;
+        font-family: "Roboto", sans-serif;
+        text-decoration: none;
+        border-radius: 8px;
+}
+
+.sgrid-4{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.112);
+    padding: 3rem;
+}
+
+.sgrid-4 h3{
+    text-align: center;
+    font-family: "Syne", sans-serif;
+    text-transform: uppercase;
+}
+
+.sgrid-4 p{
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    color: rgba(0, 0, 0, 0.528);
+    font-size: 15px;
+}
+
+.citas-4{
+        background-color: black;
+        padding: 12px 22px 12px 22px;
+        text-align: center;
+        display: inline-block;
+        justify-content: center;
+        color: white;
+        font-family: "Roboto", sans-serif;
+        text-decoration: none;
+        border-radius: 8px;
+}

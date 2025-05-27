@@ -1,0 +1,42 @@
+
+.nosotros{
+   overflow: hidden;
+    padding: 0 0 4rem 4rem;
+}
+
+.nos-grid{
+    display: grid;
+    grid-template-columns:repeat(2,minmax(0,1fr)) ;
+    gap: 4rem;
+}
+
+.sub-grid-1{
+    display: grid;
+    grid-template-columns:repeat(2,minmax(0,1fr)) ;
+    gap: 3rem;
+}
+
+.sub-grid-2{
+    display: grid;
+    grid-template-columns:repeat(2,minmax(0,1fr)) ;
+    gap: 3rem;
+}
+
+/*********** Grid *************/
+
+.grid-1{
+    padding:6rem 5rem 5rem 3rem;
+}
+
+/*********** Texto *************/
+
+.grid-1 h2{
+    font-family: "Syne", sans-serif;
+    text-transform: uppercase;
+}
+
+.grid-1 p{
+    font-family: "Roboto", sans-serif;
+    color: rgba(0, 0, 0, 0.528);
+    text-align: justify;
+}
