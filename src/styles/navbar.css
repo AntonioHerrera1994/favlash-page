@@ -154,7 +154,7 @@ nav {
 @media (max-width: 800px) {
 
   nav{
-    padding: 2rem;
+    padding: 1rem 2rem 1rem 2rem;
   }
   .nav-links,
   .nav-button {
@@ -171,7 +171,7 @@ nav {
     align-items: center;
     background-color: #222;
     position: absolute;
-    top: 80px;
+    top: 75px;
     left: 0;
     width: 100%;
     padding: 20px 0;

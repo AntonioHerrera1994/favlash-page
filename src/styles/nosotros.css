@@ -64,7 +64,6 @@
 }
 @media screen and (max-width:800px){
 
-
 .nosotros{
     overflow: hidden;
      padding: 0 0 2rem 2rem;
@@ -103,5 +102,10 @@
 .img-movil img{
     border-radius: 12px;
 }
+
+.grid-1 h2{
+  text-align: center;
+}
+
 
 }

@@ -31,6 +31,7 @@
 
     .agenda{
         overflow: hidden;
+        margin-top: -1rem;
     }
 
     .ag-grid{
@@ -38,10 +39,14 @@
         padding: 2rem;
     }
 
+    .agenda h2{
+       text-align: center;
+    }
+
     .mapa iframe{
         width: 100%;
         height: 400px;
-        margin-bottom: 1rem;
+        margin-bottom: 3rem;
     }
 
     .ag-grid-txt{
