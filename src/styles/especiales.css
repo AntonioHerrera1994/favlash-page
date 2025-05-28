@@ -1,0 +1,73 @@
+.especiales{
+    margin: auto 0;
+}
+
+.grid-es{
+    display: grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+.esgrid-1{
+        background-image: url('../assets/favlash-3.png'); /* Reemplaza 'tu_imagen.jpg' con la ruta de tu imagen */
+        background-size: cover; /* Opcional: para que la imagen cubra todo el área */
+        background-position: center; /* Opcional: para centrar la imagen */
+        position: relative; /* Necesario para que el degradado se superponga */
+        height: 500px;
+   
+      }
+
+      .esgrid-2{
+        background-image: url('../assets/favlash-4.png'); /* Reemplaza 'tu_imagen.jpg' con la ruta de tu imagen */
+        background-size: cover; /* Opcional: para que la imagen cubra todo el área */
+        background-position: center; /* Opcional: para centrar la imagen */
+        position: relative; /* Necesario para que el degradado se superponga */
+        height: 500px;
+      }
+
+.es-txt{
+    padding: 3rem;
+    margin-top: 14rem;
+    color: white;
+}
+
+.btn-esp{
+    background-color:white;
+    padding: .8rem;
+    text-align: center;
+    display: flex;
+    max-width: 20%;
+    justify-content: center;
+    color: black;
+    font-family: "Roboto", sans-serif;
+    text-decoration: none;
+    border-radius: 8px;
+
+}
+
+.es-txt2{
+    padding: 3rem;
+    margin-top: 14rem;
+    color: white;
+}
+
+.btn-esp2{
+    background-color:white;
+    padding: .8rem;
+    text-align: center;
+    display: flex;
+    max-width: 20%;
+    justify-content: center;
+    color: black;
+    font-family: "Roboto", sans-serif;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.grid-es h2{
+    font-family: "Syne", sans-serif;
+    text-transform: uppercase;
+}
+
+.grid-es p{
+    font-family: "Roboto", sans-serif;
+}

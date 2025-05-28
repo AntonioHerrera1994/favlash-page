@@ -1,0 +1,99 @@
+.testimonios{
+    margin: auto 0;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+.testimonios h2 {
+    text-align: center;
+    color: #a67c52;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .slider-container {
+    overflow: hidden;
+    position: relative;
+    max-width: 1000px;
+    margin: auto;
+  }
+
+  .slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .testimonial {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 10px;
+    width: calc(50% - 20px);
+    flex-shrink: 0;
+  }
+
+  .quote {
+    font-size: 2rem;
+    color: #d0a97a;
+    margin-bottom: 10px;
+  }
+
+  .text {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+  }
+
+  .profile img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .profile-info {
+    line-height: 1.2;
+  }
+
+  .profile-info .name {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .profile-info .title {
+    font-size: 0.8rem;
+    color: #d0a97a;
+  }
+
+  .controls {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .controls button {
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: none;
+    background-color: #a67c52;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .testimonial {
+      width: 100%;
+    }
+
+    .slider {
+      flex-wrap: nowrap;
+    }
+  }

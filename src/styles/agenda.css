@@ -1,0 +1,14 @@
+.agenda{
+    margin: auto 0;
+}
+
+
+.ag-grid{
+    display: grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    padding: 2rem 6rem 6rem 6rem  
+}
+
+.ag-grid-txt{
+    padding:  4rem 4rem 4rem 0;
+}

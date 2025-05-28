@@ -1,0 +1,86 @@
+---
+import '../styles/testimonios.css'
+---
+
+<section class="testimonios">
+    <h2>Testimonios</h2>
+
+    <div class="slider-container">
+      <div class="slider" id="slider">
+        <!-- Testimonio 1 -->
+        <div class="testimonial">
+          <div class="quote">“</div>
+          <div class="text">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</div>
+          <div class="profile">
+            <img src="https://i.pravatar.cc/100?img=1" alt="Sarah">
+            <div class="profile-info">
+              <div class="name">Sarah Nimbus</div>
+              <div class="title">Publicitária</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Testimonio 2 -->
+        <div class="testimonial">
+          <div class="quote">“</div>
+          <div class="text">Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</div>
+          <div class="profile">
+            <img src="https://i.pravatar.cc/100?img=2" alt="Jéssika">
+            <div class="profile-info">
+              <div class="name">Jéssika Jones</div>
+              <div class="title">Advogada</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Testimonio 3 -->
+        <div class="testimonial">
+          <div class="quote">“</div>
+          <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</div>
+          <div class="profile">
+            <img src="https://i.pravatar.cc/100?img=3" alt="Carlos">
+            <div class="profile-info">
+              <div class="name">Carlos Ruiz</div>
+              <div class="title">Diseñador</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Testimonio 4 -->
+        <div class="testimonial">
+          <div class="quote">“</div>
+          <div class="text">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+          <div class="profile">
+            <img src="https://i.pravatar.cc/100?img=4" alt="María">
+            <div class="profile-info">
+              <div class="name">María Lopez</div>
+              <div class="title">Desarrolladora</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="controls">
+      <button onclick="moveSlide(-1)">‹ Anterior</button>
+      <button onclick="moveSlide(1)">Siguiente ›</button>
+    </div>
+</section>
+
+<script is:global>
+    let currentIndex = 0;
+    const slider = document.getElementById('slider');
+    const totalSlides = Math.floor(slider.children.length / 2);
+
+    function moveSlide(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = totalSlides - 1;
+      if (currentIndex >= totalSlides) currentIndex = 0;
+      slider.style.transform = `translateX(-${100 * currentIndex}%)`;
+    }
+
+    document.getElementById('next').addEventListener('click', () => moveSlide(1));
+    document.getElementById('prev').addEventListener('click', () => moveSlide(-1));
+
+    setInterval(() => moveSlide(1), 5000); // Mueve automáticamente cada 5s
+  </script>
