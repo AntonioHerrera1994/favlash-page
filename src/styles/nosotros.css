@@ -33,10 +33,75 @@
 .grid-1 h2{
     font-family: "Syne", sans-serif;
     text-transform: uppercase;
+    line-height: 38px;
+    font-size: 32px;
 }
 
-.grid-1 p{
+.nosotros p{
     font-family: "Roboto", sans-serif;
     color: rgba(0, 0, 0, 0.528);
     text-align: justify;
+    font-size: 17px;
+}
+
+.nosotros h3{
+    color: #a67c52;
+    font-family: "Syne", sans-serif;
+}
+
+/************ Imagen ***********/
+.grid-2 img{
+    border-bottom-left-radius: 180px; /* Ajusta este valor al tamaño de la curva que desees */
+    /* Asegúrate de que no haya otros bordes que lo anulen */
+    border: none;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+@media screen and (min-width:801px){
+    .img-movil{
+        display: none;
+    }
+}
+@media screen and (max-width:800px){
+
+
+.nosotros{
+    overflow: hidden;
+     padding: 0 0 2rem 2rem;
+ }
+
+    .nos-grid{
+        display: grid;
+        grid-template-columns:repeat(1,minmax(0,1fr)) ;
+        gap: 0;
+    }
+
+    /*********** Grid *************/
+
+.grid-1{
+    padding:2rem 2rem 2rem 0;
+}
+
+.sub-grid-1{
+    grid-template-columns:repeat(1,minmax(0,1fr)) ;
+    gap: 0;
+}
+
+.sub-grid-2{
+    grid-template-columns:repeat(1,minmax(0,1fr)) ;
+    gap: 0;
+}
+
+.grid-2 img{
+    display: none;
+}
+
+.img-movil{
+    margin-right: 2rem;
+}
+
+.img-movil img{
+    border-radius: 12px;
+}
+
 }

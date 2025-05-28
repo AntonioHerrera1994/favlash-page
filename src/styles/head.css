@@ -33,6 +33,7 @@
 .head-grid p{
     font-family: "Roboto", sans-serif;
     color: white;
+    font-size: 17px;
 }
 
 .btn-serv{
@@ -47,6 +48,40 @@
     text-decoration: none;
     border-radius: 8px;
     margin-top: 3rem;
+}
+
+@media screen and (max-width:800px){
+/*********** General ***********/
+
+
+.head-content{
+    max-width: 100%;
+    height: 600px;
+
+}
+
+.head-grid{
+    display: grid;
+    grid-template-columns:repeat(1,minmax(0,1fr)) ;
+    padding: 2rem 2rem 2rem 2rem;
+    height: 200px;
+}
+
+.head-grid h1{
+    font-size: 45px;
+    text-align: center;
+}
+
+.head-grid p{
+   text-align: center;
+}
+
+.btn-serv{
+
+    max-width: 90%;
+    margin-left: 6.1rem;
+    margin-right: 6.1rem;
+}
 }
 
 

@@ -71,3 +71,10 @@
 .grid-es p{
     font-family: "Roboto", sans-serif;
 }
+
+@media screen and (max-width:800px){
+    .grid-es{
+        display: grid;
+        grid-template-columns:repeat(1,minmax(0,1fr));
+    }
+}

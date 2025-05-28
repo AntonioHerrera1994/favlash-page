@@ -1,14 +1,17 @@
 
 
 .servicios{
-    padding: 2rem 6rem 6rem 6rem;
+    padding: 1rem 6rem 6rem 6rem;
     margin: 0;
 }
 
 .serv-txt h2{
-    text-align: center;
     font-family: "Syne", sans-serif;
     text-transform: uppercase;
+    line-height: 38px;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 3rem;
 }
 
 /********** Grid **********/
@@ -26,63 +29,112 @@
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.112);
     padding: 3rem;
+    background-color:#a67c52;
+    border-radius: 12px;
+}
+
+.sgrid-1:hover{
+    background-color: white;
+    transition: .3s ease-in-out;
 }
 
 .sgrid-1 h3{
     text-align: center;
     font-family: "Syne", sans-serif;
     text-transform: uppercase;
+    color:white;
 }
+
+
+.sgrid-1:hover h3{
+  color: #a67c52;
+}
+
 
 .sgrid-1 p{
     text-align: center;
     font-family: "Roboto", sans-serif;
-    color: rgba(0, 0, 0, 0.528);
-    font-size: 15px;
+    color: white;
+    font-size: 16px;
 }
 
+.sgrid-1:hover p{
+    color: rgba(0, 0, 0, 0.528);
+  }
+
 .citas-1{
-        background-color: black;
+     font-size: 16px;
+        background-color: white;
         padding: 12px 22px 12px 22px;
         text-align: center;
         display: inline-block;
         justify-content: center;
-        color: white;
+        color: #a67c52;
         font-family: "Roboto", sans-serif;
         text-decoration: none;
         border-radius: 8px;
+        margin-top: 1.5rem;
 }
+
+.sgrid-1:hover .citas-1{
+    background-color: #a67c52;
+    color:white;
+  }
 
 .sgrid-2{
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.112);
     padding: 3rem;
+    background-color: white;
+    border-radius: 12px;
+}
+
+.sgrid-2:hover{
+    background-color: #a67c52;
+    transition: .3s ease-in-out;
 }
 
 .sgrid-2 h3{
     text-align: center;
     font-family: "Syne", sans-serif;
     text-transform: uppercase;
+    color: #a67c52;
 }
+
+.sgrid-2:hover h3{
+    color: white;
+  }
+
+  .sgrid-2:hover p{
+    color: white;
+  }
+
+  .sgrid-2:hover .citas-2{
+    background-color: white;
+    color:#a67c52;
+  }
+  
 
 .sgrid-2 p{
     text-align: center;
     font-family: "Roboto", sans-serif;
     color: rgba(0, 0, 0, 0.528);
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .citas-2{
-        background-color: black;
-        padding: 12px 22px 12px 22px;
-        text-align: center;
-        display: inline-block;
-        justify-content: center;
-        color: white;
-        font-family: "Roboto", sans-serif;
-        text-decoration: none;
-        border-radius: 8px;
+    font-size: 16px;
+    background-color: #a67c52;
+    padding: 12px 22px 12px 22px;
+    text-align: center;
+    display: inline-block;
+    justify-content: center;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 1.5rem;
 }
 
 .sgrid-3{
@@ -90,61 +142,120 @@
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.112);
     padding: 3rem;
+    background-color: white;
+    border-radius: 12px;
 }
 
 .sgrid-3 h3{
     text-align: center;
     font-family: "Syne", sans-serif;
     text-transform: uppercase;
+    color: #a67c52;
 }
 
 .sgrid-3 p{
     text-align: center;
     font-family: "Roboto", sans-serif;
     color: rgba(0, 0, 0, 0.528);
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .citas-3{
-        background-color: black;
-        padding: 12px 22px 12px 22px;
-        text-align: center;
-        display: inline-block;
-        justify-content: center;
-        color: white;
-        font-family: "Roboto", sans-serif;
-        text-decoration: none;
-        border-radius: 8px;
+    font-size: 16px;
+    background-color: #a67c52;
+    padding: 12px 22px 12px 22px;
+    text-align: center;
+    display: inline-block;
+    justify-content: center;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 1.5rem;
 }
+
+.sgrid-3:hover{
+    background-color: #a67c52;
+    transition: .3s ease-in-out;
+}
+
+.sgrid-3:hover h3{
+    color: white;
+  }
+
+  .sgrid-3:hover p{
+    color: white;
+  }
+
+  .sgrid-3:hover .citas-3{
+    background-color: white;
+    color:#a67c52;
+  }
 
 .sgrid-4{
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.112);
     padding: 3rem;
+    background-color: white;
+    border-radius: 12px;
 }
 
 .sgrid-4 h3{
     text-align: center;
     font-family: "Syne", sans-serif;
     text-transform: uppercase;
+    color: #a67c52;
 }
 
 .sgrid-4 p{
     text-align: center;
     font-family: "Roboto", sans-serif;
     color: rgba(0, 0, 0, 0.528);
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .citas-4{
-        background-color: black;
-        padding: 12px 22px 12px 22px;
-        text-align: center;
-        display: inline-block;
-        justify-content: center;
-        color: white;
-        font-family: "Roboto", sans-serif;
-        text-decoration: none;
-        border-radius: 8px;
+    font-size: 16px;
+    background-color: #a67c52;
+    padding: 12px 22px 12px 22px;
+    text-align: center;
+    display: inline-block;
+    justify-content: center;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 1.5rem;
 }
+
+
+.sgrid-4:hover{
+    background-color: #a67c52;
+    transition: .3s ease-in-out;
+}
+
+.sgrid-4:hover h3{
+    color: white;
+  }
+
+  .sgrid-4:hover p{
+    color: white;
+  }
+
+  .sgrid-4:hover .citas-4{
+    background-color: white;
+    color:#a67c52;
+  }
+
+  @media screen and (max-width:800px){
+
+    .servicios{
+        padding: 2rem;
+    }
+    .serv-grid{
+        display: grid;
+        grid-template-columns:repeat(1,minmax(0,1fr));
+        gap: 1rem;
+    }
+  }

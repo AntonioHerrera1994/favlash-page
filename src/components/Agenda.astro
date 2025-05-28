@@ -5,16 +5,28 @@ import '../styles/agenda.css'
 <section class="agenda">
     <div class="ag-grid">
         <div class="ag-grid-txt">
-            <h2>
-                Agenda tu cita en Tijuana
+            <h2 >
+                Agenda tu cita en <span style="color:#a67c52;">Tijuana</span>
             </h2>
             <p>
                 Não perca mais tempo e entre agora em contato com nossa equipe de especialistas. Teremos o maior prazer em ajudar você.
             </p>
+            <div class="mapa">
+                <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3365.70143371384!2d-116.93643569999999!3d32.4806767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d939d6f5d98b3b%3A0x291193318f2e7b15!2sFavlash!5e0!3m2!1sen!2smx!4v1748458839727!5m2!1sen!2smx" 
+                width="600" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                >
+            </iframe>
+            </div>
         </div>
 
         <div class="form">
-            <div class="calendly-inline-widget" style="min-width: 320px; height: 700px;" data-url="https://calendly.com/contacto-favlash/citas"></div>
+            <div class="calendly-inline-widget" style="min-width: 320px; height: 800px;" data-url="https://calendly.com/contacto-favlash/citas"></div>
             <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
             <!-- Final del widget integrado de Calendly -->
         </div>

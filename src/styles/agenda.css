@@ -2,13 +2,50 @@
     margin: auto 0;
 }
 
-
 .ag-grid{
     display: grid;
     grid-template-columns:repeat(2,minmax(0,1fr));
-    padding: 2rem 6rem 6rem 6rem  
+    padding: 1rem 6rem 3rem 6rem  
 }
 
 .ag-grid-txt{
     padding:  4rem 4rem 4rem 0;
+}
+
+.agenda h2{
+    font-family: "Syne", sans-serif;
+    text-transform: uppercase;
+    line-height: 38px;
+    font-size: 32px;
+}
+
+.agenda p{
+    font-family: "Roboto", sans-serif;
+    color: rgba(0, 0, 0, 0.528);
+    text-align: justify;
+    font-size: 17px;
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width:800px){
+
+    .agenda{
+        overflow: hidden;
+    }
+
+    .ag-grid{
+        grid-template-columns:repeat(1,minmax(0,1fr));
+        padding: 2rem;
+    }
+
+    .mapa iframe{
+        width: 100%;
+        height: 400px;
+        margin-bottom: 1rem;
+    }
+
+    .ag-grid-txt{
+        padding:  0;
+    }
+    
 }
