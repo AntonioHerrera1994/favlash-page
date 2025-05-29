@@ -70,7 +70,10 @@
 
 .grid-es p{
     font-family: "Roboto", sans-serif;
+    text-align: left;
 }
+
+
 
 @media screen and (max-width:800px){
     .grid-es{

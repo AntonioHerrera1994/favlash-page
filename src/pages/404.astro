@@ -1,0 +1,49 @@
+---
+
+import Layout from '../layouts/Layout.astro'; // Si tienes un layout base
+import Image404 from '../assets/favlash-logo-hotizontal.png';
+---
+
+<Layout title="Página no encontrada - 404" >
+    <section class="general404">
+    <div class="logo-404">
+        <img 
+        src={Image404.src}
+        width="12%"
+        height="50%"
+        alt="favlash-logo"/>
+      </div>
+  <main style="text-align: center; padding: 50px; min-height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <h1 style="font-size: 4em; color: #333;">¡404!</h1>
+    <p style="font-size: 1.5em; color: #666; margin-bottom: 20px;">Lo sentimos, la página que buscas no existe.</p>
+    <p>Parece que te has perdido en el espacio...</p>
+    <a href="/" style="display: inline-block; padding: 10px 20px; background-color: #d55da5; color: white; text-decoration: none; border-radius: 5px; margin-top: 30px;">
+      Volver a la página de inicio
+    </a>
+  </main>
+</section>
+</Layout>
+
+<style>
+  
+  .general404{
+    height: 100vh;
+  }
+
+  main {
+    font-family: "Roboto", sans-serif;
+  }
+  h1 {
+    margin-bottom: 0.2em;
+    margin-top: -15rem;
+  }
+  a:hover {
+    background-color: #0056b3;
+  }
+
+  .logo-404{
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+  }
+</style>
