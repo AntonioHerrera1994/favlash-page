@@ -299,7 +299,10 @@
       height: 250px;
     }
 
-    
+    .servicios img{
+      width: 90%;
+    }
+  
 
   }
 
