@@ -279,7 +279,25 @@
         grid-template-columns:repeat(1,minmax(0,1fr));
         gap: 1rem;
     }
+    .modal-content-esp-1 {
+      max-width: 350px!important;
+      height: 250px;
+    }
 
+    .modal-content-esp-2 {
+      max-width: 350px!important;
+      height: 250px;
+    }
+
+    .modal-content-esp-3 {
+      max-width: 350px!important;
+      height: 250px;
+    }
+
+    .modal-content-esp-4 {
+      max-width: 350px!important;
+      height: 250px;
+    }
 
   }
 

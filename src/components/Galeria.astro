@@ -1,0 +1,161 @@
+---
+import '../styles/galeria.css'
+---
+
+
+<div class="gallery-container">
+    <div class="gallery">
+        <div class="gallery-track">
+            <!-- Los items se agregarán dinámicamente con JavaScript -->
+        </div>
+        
+        <!-- Flechas de navegación -->
+        <div class="gallery-arrow gallery-arrow-left">&#10094;</div>
+        <div class="gallery-arrow gallery-arrow-right">&#10095;</div>
+        
+        <!-- Indicadores de puntos -->
+        <div class="gallery-dots">
+            <!-- Los dots se agregarán dinámicamente con JavaScript -->
+        </div>
+    </div>
+</div>
+
+<script is:global>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Datos de ejemplo para la galería
+    const galleryItems = [
+        { id: 1, title: "Imagen 1", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+1" },
+        { id: 2, title: "Imagen 2", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+2" },
+        { id: 3, title: "Imagen 3", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+3" },
+        { id: 4, title: "Imagen 4", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+4" },
+        { id: 5, title: "Imagen 5", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+5" },
+        { id: 6, title: "Imagen 6", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+6" },
+        { id: 7, title: "Imagen 7", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+7" },
+        { id: 8, title: "Imagen 8", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+8" },
+        { id: 9, title: "Imagen 9", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+9" },
+        { id: 10, title: "Imagen 10", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+10" }
+    ];
+
+    // Elementos del DOM
+    const galleryTrack = document.querySelector('.gallery-track');
+    const dotsContainer = document.querySelector('.gallery-dots');
+    const arrowLeft = document.querySelector('.gallery-arrow-left');
+    const arrowRight = document.querySelector('.gallery-arrow-right');
+    
+    // Configuración
+    const visibleItems = 5;
+    let currentIndex = 0;
+    let autoPlayInterval;
+    const autoPlayDelay = 3000; // 3 segundos
+
+    // Crear items de la galería
+    function createGalleryItems() {
+        galleryTrack.innerHTML = '';
+        galleryItems.forEach(item => {
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            galleryItem.innerHTML = `
+                <img src="${item.imageUrl}" alt="${item.title}">
+                <div class="gallery-item-title">${item.title}</div>
+            `;
+            galleryTrack.appendChild(galleryItem);
+        });
+    }
+
+    // Crear dots de navegación
+    function createDots() {
+        dotsContainer.innerHTML = '';
+        const dotsCount = galleryItems.length - visibleItems + 1;
+        
+        for (let i = 0; i < dotsCount; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'gallery-dot';
+            if (i === 0) dot.classList.add('active');
+            dot.dataset.index = i;
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    // Actualizar posición del track
+    function updateTrackPosition() {
+        const itemWidth = galleryTrack.children[0].offsetWidth + 15; // Ancho + gap
+        galleryTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        
+        // Actualizar dots activos
+        const dots = document.querySelectorAll('.gallery-dot');
+        dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+    // Ir a un slide específico
+    function goToSlide(index) {
+        currentIndex = index;
+        updateTrackPosition();
+        resetAutoPlay();
+    }
+
+    // Navegación
+    function nextSlide() {
+        if (currentIndex >= galleryItems.length - visibleItems) {
+            currentIndex = 0;
+        } else {
+            currentIndex++;
+        }
+        updateTrackPosition();
+    }
+
+    function prevSlide() {
+        if (currentIndex <= 0) {
+            currentIndex = galleryItems.length - visibleItems;
+        } else {
+            currentIndex--;
+        }
+        updateTrackPosition();
+    }
+
+    // Autoplay
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, autoPlayDelay);
+    }
+
+    function resetAutoPlay() {
+        clearInterval(autoPlayInterval);
+        startAutoPlay();
+    }
+
+    // Event listeners
+    arrowLeft.addEventListener('click', () => {
+        prevSlide();
+        resetAutoPlay();
+    });
+
+    arrowRight.addEventListener('click', () => {
+        nextSlide();
+        resetAutoPlay();
+    });
+
+    // Pausar autoplay al hacer hover
+    galleryTrack.addEventListener('mouseenter', () => {
+        clearInterval(autoPlayInterval);
+    });
+
+    galleryTrack.addEventListener('mouseleave', () => {
+        startAutoPlay();
+    });
+
+    // Inicializar
+    createGalleryItems();
+    createDots();
+    updateTrackPosition();
+    startAutoPlay();
+
+    // Ajustar en redimensionamiento
+    window.addEventListener('resize', updateTrackPosition);
+});
+</script>
