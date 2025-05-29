@@ -7,7 +7,7 @@
 .nos-grid{
     display: grid;
     grid-template-columns:repeat(2,minmax(0,1fr)) ;
-    gap: 4rem;
+    gap: 2rem;
 }
 
 .sub-grid-1{
@@ -25,7 +25,7 @@
 /*********** Grid *************/
 
 .grid-1{
-    padding:6rem 5rem 5rem 3rem;
+    padding:3rem 1rem 1rem 3rem;
 }
 
 /*********** Texto *************/
@@ -40,8 +40,9 @@
 .nosotros p{
     font-family: "Roboto", sans-serif;
     color: rgba(0, 0, 0, 0.528);
-    text-align: justify;
     font-size: 17px;
+    line-height: 26px;
+    text-align: left;
 }
 
 .nosotros h3{
@@ -50,11 +51,14 @@
 }
 
 /************ Imagen ***********/
-.grid-2 img{
-    border-bottom-left-radius: 180px; /* Ajusta este valor al tamaño de la curva que desees */
-    /* Asegúrate de que no haya otros bordes que lo anulen */
-    border: none;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+.grid-2{
+    background-image: url('../assets/cabello-f.png');
+    background-position: center;
+    background-size: cover;
+    max-width: 100%;
+    height: 750px;
+    border-bottom-left-radius: 180px;
 }
 
 @media screen and (min-width:801px){
@@ -91,7 +95,7 @@
     gap: 0;
 }
 
-.grid-2 img{
+.grid-2{
     display: none;
 }
 

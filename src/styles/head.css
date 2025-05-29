@@ -34,6 +34,8 @@
     font-family: "Roboto", sans-serif;
     color: white;
     font-size: 17px;
+    text-align: left;
+    line-height: 26px;
 }
 
 .btn-serv{
