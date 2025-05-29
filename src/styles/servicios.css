@@ -279,11 +279,23 @@
         grid-template-columns:repeat(1,minmax(0,1fr));
         gap: 1rem;
     }
+
+
   }
 
   /********** Modal Servicios **********/
 
-  
+  .servicios span{
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+    font-size: 17px;
+  }
+
+  .spantxt{
+    display: flex;
+    justify-content: center;
+  }
+
   /* Modal 1 */
   .modal-esp-1 {
     display: none;

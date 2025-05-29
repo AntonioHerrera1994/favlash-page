@@ -89,6 +89,18 @@
     font-family: "Roboto", sans-serif;
   }
 
+  .text{
+    font-family: "Roboto", sans-serif;
+  }
+
+  .title{
+    font-family: "Roboto", sans-serif;
+  }
+
+  .name{
+    font-family: "Syne", sans-serif;
+  }
+
   @media (max-width: 768px) {
     .testimonial {
       width: 100%;

@@ -70,7 +70,8 @@ import '../styles/testimonios.css'
 <script is:global>
     let currentIndex = 0;
     const slider = document.getElementById('slider');
-    const totalSlides = Math.floor(slider.children.length / 2);
+    const totalSlides = slider.children.length;
+
 
     function moveSlide(direction) {
       currentIndex += direction;
