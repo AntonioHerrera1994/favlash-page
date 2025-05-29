@@ -2,7 +2,6 @@
 import '../styles/galeria.css'
 ---
 
-
 <div class="gallery-container">
     <div class="gallery">
         <div class="gallery-track">
@@ -20,27 +19,36 @@ import '../styles/galeria.css'
     </div>
 </div>
 
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-image" id="lightbox-image">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
 <script is:global>
     document.addEventListener('DOMContentLoaded', function() {
     // Datos de ejemplo para la galería
     const galleryItems = [
-        { id: 1, title: "Imagen 1", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+1" },
-        { id: 2, title: "Imagen 2", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+2" },
-        { id: 3, title: "Imagen 3", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+3" },
-        { id: 4, title: "Imagen 4", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+4" },
-        { id: 5, title: "Imagen 5", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+5" },
-        { id: 6, title: "Imagen 6", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+6" },
-        { id: 7, title: "Imagen 7", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+7" },
-        { id: 8, title: "Imagen 8", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+8" },
-        { id: 9, title: "Imagen 9", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+9" },
-        { id: 10, title: "Imagen 10", imageUrl: "https://via.placeholder.com/300x180?text=Imagen+10" }
+        { id: 1, title: "Imagen 1", imageUrl: "https://raw.githubusercontent.com/AntonioHerrera1994/favlash-page/refs/heads/main/src/assets/galeria/galeria1.png" },
+        { id: 2, title: "Imagen 2", imageUrl: "https://raw.githubusercontent.com/AntonioHerrera1994/favlash-page/refs/heads/main/src/assets/galeria/galeria2.png" },
+        { id: 3, title: "Imagen 3", imageUrl: "https://github.com/AntonioHerrera1994/favlash-page/blob/main/src/assets/galeria/galeria3.png?raw=true" },
+        { id: 4, title: "Imagen 4", imageUrl: "https://raw.githubusercontent.com/AntonioHerrera1994/favlash-page/refs/heads/main/src/assets/galeria/galeria4.png" },
+        { id: 5, title: "Imagen 5", imageUrl: "https://github.com/AntonioHerrera1994/favlash-page/blob/main/src/assets/galeria/galeria5.png?raw=true" },
+        { id: 6, title: "Imagen 6", imageUrl: "https://github.com/AntonioHerrera1994/favlash-page/blob/main/src/assets/galeria/galeria6.png?raw=true" },
+        { id: 7, title: "Imagen 7", imageUrl: "https://github.com/AntonioHerrera1994/favlash-page/blob/main/src/assets/galeria/galeria7.png?raw=true" },
+        { id: 8, title: "Imagen 8", imageUrl: "https://github.com/AntonioHerrera1994/favlash-page/blob/main/src/assets/galeria/galeria8.png?raw=true" },
+
     ];
 
-    // Elementos del DOM
+     // Elementos del DOM
     const galleryTrack = document.querySelector('.gallery-track');
     const dotsContainer = document.querySelector('.gallery-dots');
     const arrowLeft = document.querySelector('.gallery-arrow-left');
     const arrowRight = document.querySelector('.gallery-arrow-right');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-image');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxClose = document.querySelector('.lightbox-close');
     
     // Configuración
     const visibleItems = 5;
@@ -55,13 +63,45 @@ import '../styles/galeria.css'
             const galleryItem = document.createElement('div');
             galleryItem.className = 'gallery-item';
             galleryItem.innerHTML = `
-                <img src="${item.imageUrl}" alt="${item.title}">
+                <img src="${item.imageUrl.replace('800x500', '300x180')}" alt="${item.title}" data-fullsize="${item.imageUrl}">
                 <div class="gallery-item-title">${item.title}</div>
             `;
             galleryTrack.appendChild(galleryItem);
         });
+
+        // Agregar event listeners para el lightbox
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', function() {
+                openLightbox(this.dataset.fullsize, this.alt);
+            });
+        });
     }
 
+    // Función para abrir el lightbox
+    function openLightbox(imageSrc, caption) {
+        lightbox.style.display = 'block';
+        lightboxImg.src = imageSrc;
+        lightboxCaption.textContent = caption;
+        document.body.style.overflow = 'hidden'; // Evitar scroll
+    }
+
+    // Función para cerrar el lightbox
+    function closeLightbox() {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restaurar scroll
+    }
+
+     // ... (el resto del código JavaScript anterior permanece igual)
+    // Solo agregamos el event listener para cerrar el lightbox
+
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    // Cerrar lightbox al hacer clic fuera de la imagen
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
     // Crear dots de navegación
     function createDots() {
         dotsContainer.innerHTML = '';
@@ -99,6 +139,8 @@ import '../styles/galeria.css'
         updateTrackPosition();
         resetAutoPlay();
     }
+
+    
 
     // Navegación
     function nextSlide() {
