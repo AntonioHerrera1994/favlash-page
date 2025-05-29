@@ -8,13 +8,15 @@ import '../styles/galeria.css'
             <!-- Los items se agregarán dinámicamente con JavaScript -->
         </div>
         
-        <!-- Flechas de navegación -->
-        <div class="gallery-arrow gallery-arrow-left">&#10094;</div>
-        <div class="gallery-arrow gallery-arrow-right">&#10095;</div>
-        
-        <!-- Indicadores de puntos -->
-        <div class="gallery-dots">
-            <!-- Los dots se agregarán dinámicamente con JavaScript -->
+        <!-- Contenedor para flechas y dots -->
+        <div class="gallery-controls">
+            <!-- Flechas de navegación -->
+            <div class="gallery-arrow gallery-arrow-left">&#10094;</div>
+            <!-- Indicadores de puntos -->
+            <div class="gallery-dots">
+                <!-- Los dots se agregarán dinámicamente con JavaScript -->
+            </div>
+            <div class="gallery-arrow gallery-arrow-right">&#10095;</div>
         </div>
     </div>
 </div>
@@ -25,6 +27,7 @@ import '../styles/galeria.css'
     <img class="lightbox-image" id="lightbox-image">
     <div class="lightbox-caption" id="lightbox-caption"></div>
 </div>
+
 <script is:global>
     document.addEventListener('DOMContentLoaded', function() {
     // Datos de ejemplo para la galería
@@ -40,8 +43,8 @@ import '../styles/galeria.css'
 
     ];
 
-     // Elementos del DOM
-    const galleryTrack = document.querySelector('.gallery-track');
+   // Elementos del DOM
+   const galleryTrack = document.querySelector('.gallery-track');
     const dotsContainer = document.querySelector('.gallery-dots');
     const arrowLeft = document.querySelector('.gallery-arrow-left');
     const arrowRight = document.querySelector('.gallery-arrow-right');
@@ -51,10 +54,17 @@ import '../styles/galeria.css'
     const lightboxClose = document.querySelector('.lightbox-close');
     
     // Configuración
-    const visibleItems = 5;
+    let visibleItems = window.innerWidth <= 768 ? 2 : 5; // 2 en móvil, 5 en desktop
     let currentIndex = 0;
     let autoPlayInterval;
-    const autoPlayDelay = 3000; // 3 segundos
+    const autoPlayDelay = 3000;
+
+    // Función para actualizar el número de items visibles según el tamaño de pantalla
+    function updateVisibleItems() {
+        visibleItems = window.innerWidth <= 768 ? 2 : 5;
+        createDots();
+        updateTrackPosition();
+    }
 
     // Crear items de la galería
     function createGalleryItems() {
@@ -82,35 +92,24 @@ import '../styles/galeria.css'
         lightbox.style.display = 'block';
         lightboxImg.src = imageSrc;
         lightboxCaption.textContent = caption;
-        document.body.style.overflow = 'hidden'; // Evitar scroll
+        document.body.style.overflow = 'hidden';
     }
 
     // Función para cerrar el lightbox
     function closeLightbox() {
         lightbox.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Restaurar scroll
+        document.body.style.overflow = 'auto';
     }
 
-     // ... (el resto del código JavaScript anterior permanece igual)
-    // Solo agregamos el event listener para cerrar el lightbox
-
-    lightboxClose.addEventListener('click', closeLightbox);
-
-    // Cerrar lightbox al hacer clic fuera de la imagen
-    lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox) {
-            closeLightbox();
-        }
-    });
     // Crear dots de navegación
     function createDots() {
         dotsContainer.innerHTML = '';
-        const dotsCount = galleryItems.length - visibleItems + 1;
+        const dotsCount = Math.max(galleryItems.length - visibleItems + 1, 1);
         
         for (let i = 0; i < dotsCount; i++) {
             const dot = document.createElement('div');
             dot.className = 'gallery-dot';
-            if (i === 0) dot.classList.add('active');
+            if (i === currentIndex) dot.classList.add('active');
             dot.dataset.index = i;
             dot.addEventListener('click', () => goToSlide(i));
             dotsContainer.appendChild(dot);
@@ -119,7 +118,10 @@ import '../styles/galeria.css'
 
     // Actualizar posición del track
     function updateTrackPosition() {
-        const itemWidth = galleryTrack.children[0].offsetWidth + 15; // Ancho + gap
+        const item = galleryTrack.children[0];
+        if (!item) return;
+        
+        const itemWidth = item.offsetWidth + 15; // Ancho + gap
         galleryTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
         
         // Actualizar dots activos
@@ -140,11 +142,10 @@ import '../styles/galeria.css'
         resetAutoPlay();
     }
 
-    
-
     // Navegación
     function nextSlide() {
-        if (currentIndex >= galleryItems.length - visibleItems) {
+        const maxIndex = Math.max(galleryItems.length - visibleItems, 0);
+        if (currentIndex >= maxIndex) {
             currentIndex = 0;
         } else {
             currentIndex++;
@@ -153,8 +154,9 @@ import '../styles/galeria.css'
     }
 
     function prevSlide() {
+        const maxIndex = Math.max(galleryItems.length - visibleItems, 0);
         if (currentIndex <= 0) {
-            currentIndex = galleryItems.length - visibleItems;
+            currentIndex = maxIndex;
         } else {
             currentIndex--;
         }
@@ -182,22 +184,28 @@ import '../styles/galeria.css'
         resetAutoPlay();
     });
 
-    // Pausar autoplay al hacer hover
-    galleryTrack.addEventListener('mouseenter', () => {
-        clearInterval(autoPlayInterval);
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
     });
 
-    galleryTrack.addEventListener('mouseleave', () => {
-        startAutoPlay();
+    // Cerrar lightbox con ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        }
+    });
+
+    // Redimensionamiento de ventana
+    window.addEventListener('resize', function() {
+        updateVisibleItems();
     });
 
     // Inicializar
     createGalleryItems();
-    createDots();
-    updateTrackPosition();
+    updateVisibleItems();
     startAutoPlay();
-
-    // Ajustar en redimensionamiento
-    window.addEventListener('resize', updateTrackPosition);
 });
 </script>

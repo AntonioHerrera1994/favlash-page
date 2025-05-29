@@ -1,4 +1,5 @@
 
+
 .gallery-container {
     max-width: 1350px;
     margin: 0 auto;
@@ -36,53 +37,48 @@
     height: 180px;
     object-fit: cover;
     display: block;
+    cursor: pointer;
 }
 
 .gallery-item-title {
     padding: 10px;
     text-align: center;
     font-size: 14px;
-    font-family: "Roboto", sans-serif;
- 
+}
+
+/* Controles de navegación */
+.gallery-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 15px;
 }
 
 /* Flechas de navegación */
 .gallery-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     width: 40px;
     height: 40px;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     font-size: 20px;
-    color: #333;
+    color: white;
     z-index: 10;
-    opacity: 0;
-    transition: opacity 0.3s;
+    transition: all 0.3s;
 }
 
-.gallery:hover .gallery-arrow {
-    opacity: 1;
-}
-
-.gallery-arrow-left {
-    left: 10px;
-}
-
-.gallery-arrow-right {
-    right: 10px;
+.gallery-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 /* Indicadores de puntos */
 .gallery-dots {
     display: flex;
     justify-content: center;
-    margin-top: 15px;
     gap: 8px;
 }
 
@@ -99,8 +95,7 @@
     background-color: #333;
 }
 
-
-/* Lightbox */
+/* Lightbox (mantenido igual) */
 .lightbox {
     display: none;
     position: fixed;
@@ -153,7 +148,19 @@
     color: #ccc;
 }
 
-/* Hacer las imágenes de la galería clickeables */
-.gallery-item img {
-    cursor: pointer;
+/* Media Queries para móvil */
+@media (max-width: 768px) {
+    .gallery-item {
+        min-width: calc(50% - 8px); /* 2 elementos visibles (100%/2) con gap reducido */
+    }
+    
+    .gallery-controls {
+        gap: 10px;
+    }
+    
+    .gallery-arrow {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
 }
