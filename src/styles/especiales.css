@@ -1,83 +1,70 @@
-.especiales{
+.especiales {
     margin: auto 0;
+    background-color: #c7b0969c;
+    background-image: url("../assets/lash-4.png");
+    background-position: center;
+    background-size: cover;
+  
 }
 
-.grid-es{
+.grid-es {
     display: grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    padding: 6rem 5rem;
+    align-items: stretch; /* Asegura que todos los items se estiren para igualar la altura */
 }
 
-.esgrid-1{
-        background-image: url('../assets/favlash-3.png'); /* Reemplaza 'tu_imagen.jpg' con la ruta de tu imagen */
-        background-size: cover; /* Opcional: para que la imagen cubra todo el área */
-        background-position: center; /* Opcional: para centrar la imagen */
-        position: relative; /* Necesario para que el degradado se superponga */
-        height: 500px;
-   
-      }
-
-      .esgrid-2{
-        background-image: url('../assets/favlash-4.png'); /* Reemplaza 'tu_imagen.jpg' con la ruta de tu imagen */
-        background-size: cover; /* Opcional: para que la imagen cubra todo el área */
-        background-position: center; /* Opcional: para centrar la imagen */
-        position: relative; /* Necesario para que el degradado se superponga */
-        height: 500px;
-      }
-
-.es-txt{
-    padding: 3rem;
-    margin-top: 14rem;
-    color: white;
+.grid2{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
 }
-
-.btn-esp{
-    background-color:white;
-    padding: .8rem;
-    text-align: center;
+/* Contenedores de cada embed */
+.esgrid-1, .esgrid-2, .esgrid-3, .esgrid-4 {
     display: flex;
-    max-width: 20%;
-    justify-content: center;
-    color: black;
-    font-family: "Roboto", sans-serif;
-    text-decoration: none;
-    border-radius: 8px;
-
+    flex-direction: column;
+    height: 50%;
 }
 
-.es-txt2{
-    padding: 3rem;
-    margin-top: 14rem;
-    color: white;
+/* Estilo para todos los embeds de Instagram */
+.instagram-media {
+    flex-grow: 1; /* Hace que el embed ocupe todo el espacio disponible */
+    min-height: 500px; /* Altura mínima para todos los embeds */
+    height: 100% !important; /* Fuerza la altura al 100% */
+    width: 100% !important;
 }
 
-.btn-esp2{
-    background-color:white;
-    padding: .8rem;
-    text-align: center;
-    display: flex;
-    max-width: 20%;
-    justify-content: center;
-    color: black;
-    font-family: "Roboto", sans-serif;
-    text-decoration: none;
-    border-radius: 8px;
-}
 
 .grid-es h2{
     font-family: "Syne", sans-serif;
     text-transform: uppercase;
+    line-height: 60px;
+    font-size: 50px;
+ margin-top: 9.8rem;
+
 }
 
-.grid-es p{
-    font-family: "Roboto", sans-serif;
-    text-align: left;
-}
+@media screen and (max-width: 800px) {
+    .grid-es {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        padding: 20px;
+    }
 
+    .grid2{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 1rem;
+    }
 
-
-@media screen and (max-width:800px){
-    .grid-es{
-        display: grid;
-        grid-template-columns:repeat(1,minmax(0,1fr));
+    .grid-es h2{
+  text-align: center;
+        line-height: 42px;
+        font-size: 30px;
+     margin-top: 3rem;
+    
+    }
+    
+    .instagram-media {
+        min-height: 400px; /* Altura menor para móviles si es necesario */
     }
 }

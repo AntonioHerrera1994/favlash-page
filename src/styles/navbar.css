@@ -5,7 +5,7 @@ nav {
   justify-content: space-between;
   padding: 20px 90px;
   color: white;
-
+background-color: black;
 }
 
 .navbar-f{
@@ -28,7 +28,7 @@ nav {
   text-decoration: none;
   font-size: 17px;
   font-family: "Roboto", sans-serif;
-  color: black;
+  color: white;
 }
 
 .nav-links a:hover {
@@ -86,7 +86,7 @@ nav {
 .hamburger span {
   height: 3px;
   width: 25px;
-  background-color: black;
+  background-color: white;
   border-radius: 2px;
   transition: 0.3s;
 }
@@ -100,7 +100,7 @@ nav {
 
   .subhead-grid{
     padding: 1rem 5rem 1rem 5rem;
-    background-color: #c7b096;
+    background-color:white;
     display:grid;
     grid-template-columns: 50% 50%;
     gap: 10rem;   
@@ -113,18 +113,19 @@ nav {
     justify-content: space-around; /* Distribuye el espacio */
     align-items: center; /* Alinea verticalmente */
     font-family: "Roboto", sans-serif;
-    color:white;
+    color: #c7b096;
     font-size: 17px;
   }
   
   .sg-1 i{
     margin-right: 1rem;
-    color:white;
+    color: #c7b096;
   }
 
     /********** Subhead 2 **********/
   .sg-2 p{
     font-size: 17px;
+    color:  #c7b096;;
   }
 
   .sg-2{
@@ -137,11 +138,13 @@ nav {
 
   .sg-2 ul{
     margin-left: -1rem;
+    color:  #c7b096;
   }
 
   .lista-hor li{
     display: inline-block;
     margin-right: 10px; /* Espaciado entre elementos */
+    color:  #c7b096;
   }
 
   .usa-flag{
