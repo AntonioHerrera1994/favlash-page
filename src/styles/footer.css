@@ -19,6 +19,8 @@
     color: white;
 }
 
+
+
 li{
     color: white;
 }
@@ -70,6 +72,12 @@ li{
 .footer .bi{
     color: white;
     margin-right: 1rem;
+}
+
+.footergrid2 a{
+     color: rgba(255, 255, 255, 0.713);
+    text-decoration: none;
+    text-transform: none;
 }
 
 

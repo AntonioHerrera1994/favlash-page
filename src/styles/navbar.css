@@ -152,6 +152,10 @@ background-color: black;
     position: absolute;
     margin-top: -3px;
   }
+
+  .sg-2 a{
+    color:  #c7b096;
+  }
  
   /* Responsive */
 @media (max-width: 800px) {
