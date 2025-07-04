@@ -10,12 +10,12 @@ import '../styles/testimonios.css'
         <!-- Testimonio 1 -->
         <div class="testimonial">
           <div class="quote">“</div>
-          <div class="text">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</div>
+          <div class="text">El proceso fue súper cómodo y el resultado es simplemente perfecto. Me siento mucho más segura y lista para cualquier ocasión. ¡Son las mejores!</div>
           <div class="profile">
-            <img src="https://i.pravatar.cc/100?img=1" alt="Sarah">
+             <!--<img src="https://i.pravatar.cc/100?img=1" alt="Sarah">-->
             <div class="profile-info">
-              <div class="name">Sarah Nimbus</div>
-              <div class="title">Publicitária</div>
+              <div class="name">- Sofía G.</div>
+              <div class="title"></div>
             </div>
           </div>
         </div>
@@ -23,12 +23,12 @@ import '../styles/testimonios.css'
         <!-- Testimonio 2 -->
         <div class="testimonial">
           <div class="quote">“</div>
-          <div class="text">Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</div>
+          <div class="text">La atención es de primera, siempre te hacen sentir bienvenida y escuchada. Además, la calidad de las extensiones es superior; me duran muchísimo y siempre lucen fabulosas.</div>
           <div class="profile">
-            <img src="https://i.pravatar.cc/100?img=2" alt="Jéssika">
+              <!--<img src="https://i.pravatar.cc/100?img=1" alt="Sarah">-->
             <div class="profile-info">
-              <div class="name">Jéssika Jones</div>
-              <div class="title">Advogada</div>
+              <div class="name">— Valeria M.</div>
+              <div class="title"></div>
             </div>
           </div>
         </div>
@@ -36,12 +36,12 @@ import '../styles/testimonios.css'
         <!-- Testimonio 3 -->
         <div class="testimonial">
           <div class="quote">“</div>
-          <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</div>
+          <div class="text">El ambiente es relajante y el profesionalismo es evidente. Salgo de cada cita sintiéndome renovada y con unas pestañas espectaculares</div>
           <div class="profile">
-            <img src="https://i.pravatar.cc/100?img=3" alt="Carlos">
+             <!--<img src="https://i.pravatar.cc/100?img=1" alt="Sarah">-->
             <div class="profile-info">
-              <div class="name">Carlos Ruiz</div>
-              <div class="title">Diseñador</div>
+              <div class="name">— Andrea P.z</div>
+              <div class="title"></div>
             </div>
           </div>
         </div>
@@ -49,12 +49,12 @@ import '../styles/testimonios.css'
         <!-- Testimonio 4 -->
         <div class="testimonial">
           <div class="quote">“</div>
-          <div class="text">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+          <div class="text">La calidad del trabajo es excepcional y se nota que utilizan productos de alta gama.</div>
           <div class="profile">
-            <img src="https://i.pravatar.cc/100?img=4" alt="María">
+            <!--<img src="https://i.pravatar.cc/100?img=1" alt="Sarah">-->
             <div class="profile-info">
-              <div class="name">María Lopez</div>
-              <div class="title">Desarrolladora</div>
+              <div class="name">— Laura C.</div>
+              <div class="title"></div>
             </div>
           </div>
         </div>
@@ -68,20 +68,39 @@ import '../styles/testimonios.css'
 </section>
 
 <script is:global>
-    let currentIndex = 0;
-    const slider = document.getElementById('slider');
-    const totalSlides = slider.children.length;
+  let currentIndex = 0;
+  const slider = document.getElementById('slider');
+  const slides = slider.children;
+  const totalSlides = slides.length;
 
+  let slidesToShow = window.innerWidth < 768 ? 1 : 2;
+  let maxIndex = Math.ceil(totalSlides / slidesToShow) - 1;
 
-    function moveSlide(direction) {
-      currentIndex += direction;
-      if (currentIndex < 0) currentIndex = totalSlides - 1;
-      if (currentIndex >= totalSlides) currentIndex = 0;
-      slider.style.transform = `translateX(-${100 * currentIndex}%)`;
+  window.addEventListener('resize', () => {
+    slidesToShow = window.innerWidth < 768 ? 1 : 2;
+    maxIndex = Math.ceil(totalSlides / slidesToShow) - 1;
+    currentIndex = 0;
+    slider.style.transition = 'none';
+    slider.style.transform = `translateX(0%)`;
+  });
+
+  function moveSlide(direction) {
+    currentIndex += direction;
+
+    if (currentIndex < 0) {
+      currentIndex = maxIndex;
+    }
+    if (currentIndex > maxIndex) {
+      currentIndex = 0;
     }
 
-    document.getElementById('next').addEventListener('click', () => moveSlide(1));
-    document.getElementById('prev').addEventListener('click', () => moveSlide(-1));
+    const movePercent = (260 / slidesToShow) * currentIndex;
+    slider.style.transition = 'transform 0.5s ease-in-out';
+    slider.style.transform = `translateX(-${movePercent}%)`;
+  }
 
-    setInterval(() => moveSlide(1), 5000); // Mueve automáticamente cada 5s
-  </script>
+  document.getElementById('next').addEventListener('click', () => moveSlide(1));
+  document.getElementById('prev').addEventListener('click', () => moveSlide(-1));
+
+  setInterval(() => moveSlide(1), 5000);
+</script>

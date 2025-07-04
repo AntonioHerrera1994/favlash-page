@@ -30,7 +30,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     margin: 10px;
-    width: calc(50% - 20px);
+    width: 50%;
     flex-shrink: 0;
   }
 
@@ -41,9 +41,10 @@
   }
 
   .text {
-    font-size: 0.95rem;
-    color: #333;
-    margin-bottom: 15px;
+       font-family: "Roboto", sans-serif;
+    color: rgba(0, 0, 0, 0.528);
+    font-size: 17px;
+    line-height: 26px;
   }
 
   .profile {
@@ -65,6 +66,8 @@
   .profile-info .name {
     font-weight: bold;
     color: #333;
+       font-family: "Syne", sans-serif;
+       margin-top: 1rem;
   }
 
   .profile-info .title {
