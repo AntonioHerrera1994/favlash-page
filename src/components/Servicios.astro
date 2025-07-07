@@ -2,6 +2,7 @@
 import '../styles/servicios.css'
 import Serv1 from '../assets/precio-pestanas.jpeg'
 import Serv2 from '../assets/cejas-precios.webp'
+import Serv3 from '../assets/uñas-precios.webp'
 ---
 
 <section class="servicios" id="servicios">
@@ -88,18 +89,23 @@ import Serv2 from '../assets/cejas-precios.webp'
         <div class="sgrid-4">
             <h3>servicio de manicura y pedicura</h3>
             <p>Consentimos tus manos y pies con técnicas impecables y realizados con herramientas previamente desinfectadas y esterilizadas para tu protección.</p>
-            <!-- <div class="btns1">
+             <div class="btns1">
                 <button onclick="abrirModal4('servicio de manicura')" class="citas-4">Ver servicio</button>
-            </div>-->
+            </div>
             
 
-            <!-- Modal -->
+                  <!-- Modal -->
             <div id="modal-esp-4" class="modal-esp-4">
                 <div class="modal-content-esp-4">
                   <span class="cerrar-esp-4" onclick="cerrarModal4()">&times;</span>
                   <h2 id="titulo-modal-esp-4"></h2>
                   <div class="spantxt">
-                    <span>desde:ooo</span>
+                   <img 
+                   src={Serv3.src}
+                   width="90%",
+                   height="90%",
+                   alt="precios-pestañas"
+                   />
                   </div>
                 </div>
               </div>
