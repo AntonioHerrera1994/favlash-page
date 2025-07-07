@@ -1,7 +1,7 @@
 ---
 import '../styles/servicios.css'
 import Serv1 from '../assets/precio-pestanas.jpeg'
-import Serv2 from '../assets/precio-cejas.jpeg'
+import Serv2 from '../assets/cejas-precios.webp'
 ---
 
 <section class="servicios" id="servicios">
@@ -51,7 +51,7 @@ import Serv2 from '../assets/precio-cejas.jpeg'
                   <h2 id="titulo-modal-esp-2"></h2>
                   <div class="spantxt">
                     <img 
-                    src={Serv1.src}
+                    src={Serv2.src}
                     width="100%",
                     height="100%",
                     alt="precios-cejas"
@@ -140,4 +140,14 @@ function abrirModal4(titulo) {
 function cerrarModal4() {
   document.getElementById("modal-esp-4").style.display = "none";
 }
+
+  // Cierre al hacer clic fuera del contenido
+  window.addEventListener('click', function (e) {
+    const modals = document.querySelectorAll('[id^="modal-esp-"]');
+    modals.forEach((modal) => {
+      if (modal.style.display === 'block' && e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  });
 </script>
