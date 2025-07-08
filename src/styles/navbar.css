@@ -178,11 +178,12 @@ background-color: black;
     align-items: center;
     background-color: #222;
     position: absolute;
-    top: 75px;
+    top: 70px;
     left: 0;
     width: 100%;
     padding: 20px 0;
     z-index: 10;
+    font-family: "Roboto", sans-serif;
   }
 
   .mobile-menu a {
