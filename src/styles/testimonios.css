@@ -17,12 +17,20 @@
     position: relative;
     max-width: 1000px;
     margin: auto;
+     touch-action: pan-y; /* Evita conflictos de scroll vertical en mobile */
   }
 
   .slider {
     display: flex;
     transition: transform 0.5s ease-in-out;
+      will-change: transform;
+  cursor: grab;
   }
+
+  .slider.dragging {
+  cursor: grabbing;
+  transition: none; /* Para arrastrar en tiempo real */
+}
 
   .testimonial {
     background-color: #fff;
@@ -30,7 +38,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     margin: 10px;
-    width: 50%;
+    width: 30%;
     flex-shrink: 0;
   }
 
@@ -106,9 +114,8 @@
 
   @media (max-width: 768px) {
     .testimonial {
-      width: 100%;
-    }
-
+    flex: 0 0 50%;
+  }
     .slider {
       flex-wrap: nowrap;
     }
