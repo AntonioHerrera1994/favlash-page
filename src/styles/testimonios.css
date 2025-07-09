@@ -114,7 +114,7 @@
 
   @media (max-width: 768px) {
     .testimonial {
-    flex: 0 0 50%;
+    flex: 0 0 70%;
   }
     .slider {
       flex-wrap: nowrap;
