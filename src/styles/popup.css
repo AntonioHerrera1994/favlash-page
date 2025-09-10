@@ -48,3 +48,12 @@
   z-index: 1001; /* Asegúrate de que el botón esté por encima */
 }
 
+@media screen and (max-width:801px) {
+  .popup-content {
+
+  width: 70%;
+  max-width: 750px;
+
+}
+}
+
