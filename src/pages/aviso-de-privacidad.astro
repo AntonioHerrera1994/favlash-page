@@ -5,34 +5,84 @@ import ImageLogoExtra from '../assets/logo-sandy.webp';
 
 <html lang="es">
 	<head>
-    	<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TRV4RC9SNF"></script>
-<script is:inline>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-TRV4RC9SNF');
-</script>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Términos Y Condiciones - Favlash</title>
-		<link rel="icon" type="image/svg+xml" href="/favicon2.svg" />
-		<meta name="description" content="Vive la experiencia de un servicio de calidad en Tijuana.">
+    <!-- Meta básicos -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
     
-    		    <meta property="og:image" content="https://github.com/AntonioHerrera1994/favlash-page/blob/main/src/assets/favlash-horizonta-2.jpg?raw=true">
-    <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:image:alt" content="Descripción de tu imagen para accesibilidad">
-    <meta property="og:title" content="FavLash: By Sandy Herrera">
-    <meta property="og:description" content="Vive la experiencia de un servicio de calidad en Tijuana.">
-    <meta property="og:type" content="website">
+    <!-- SEO Principal -->
+    <title>FavLash by Sandy Herrera | Extensiones de Pestañas y Cejas en Tijuana</title>
+    <meta name="description" content="Salón de belleza especializado en extensiones de pestañas, laminado de cejas y tratamientos faciales en Tijuana. Agenda tu cita y vive la experiencia FavLash.">
+    <link rel="canonical" href="https://favlash.com/" />
+    
+    <!-- Keywords locales (opcional pero útil) -->
+    <meta name="keywords" content="extensiones de pestañas Tijuana, laminado de cejas, salón de belleza Tijuana, pestañas pelo por pelo, FavLash">
+    
+    <!-- Información del negocio -->
+    <meta name="author" content="Sandy Herrera">
+    <meta name="geo.region" content="MX-BCN">
+    <meta name="geo.placename" content="Tijuana">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="business.business">
     <meta property="og:url" content="https://favlash.com/">
-
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Syne:wght@400..800&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-	</head>
+    <meta property="og:title" content="FavLash by Sandy Herrera | Extensiones de Pestañas en Tijuana">
+    <meta property="og:description" content="Salón de belleza especializado en extensiones de pestañas, laminado de cejas y tratamientos faciales en Tijuana. Agenda tu cita.">
+    <meta property="og:image" content="https://favlash.com/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="FavLash by Sandy Herrera - Salón de belleza en Tijuana">
+    <meta property="og:locale" content="es_MX">
+    <meta property="og:site_name" content="FavLash by Sandy Herrera">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://favlash.com/">
+    <meta name="twitter:title" content="FavLash by Sandy Herrera | Extensiones de Pestañas en Tijuana">
+    <meta name="twitter:description" content="Salón de belleza especializado en extensiones de pestañas, laminado de cejas y tratamientos faciales en Tijuana.">
+    <meta name="twitter:image" content="https://favlash.com/og-image.jpg">
+    
+    <!-- Icons y Theme -->
+    <link rel="icon" type="image/svg+xml" href="/favicon2.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#FFB6C1"> <!-- Ajusta al color principal de tu marca -->
+    
+    <!-- Preconnects (CRITICAL para performance) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Schema.org para Google (LOCAL BUSINESS) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BeautySalon",
+  "name": "FavLash by Sandy Herrera",
+  "description": "Salón de belleza especializado en extensiones de pestañas en Tijuana",
+  "address": {
+    "@type": "22110",
+    "addressLocality": "Tijuana",
+    "addressRegion": "BC",
+    "addressCountry": "MX"
+  },
+  "url": "https://favlash.com/"
+}
+</script>
+    <!-- Google Analytics (considera moverlo antes de </body>) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TRV4RC9SNF"></script>
+    <script is:inline>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TRV4RC9SNF');
+    </script>
+</head>
 	<body>
 
         <div class="content" id="miDiv">
