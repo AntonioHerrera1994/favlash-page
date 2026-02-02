@@ -25,11 +25,15 @@
   border-radius: 8px;
   position: relative;
   width: 100%;
-  max-width: 700px;
+  max-width: 540px;
   text-align: center;
   transform: translateY(-20px); /* Ligeramente arriba */
   opacity: 0; /* Oculto inicialmente */
   transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Transiciones para el contenido */
+}
+
+.popup-content img{
+max-width: 100%;
 }
 
 .popup-overlay.is-visible .popup-content {

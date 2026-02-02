@@ -11,12 +11,15 @@ import Agenda from '../components/Agenda.astro';
 import Footer from '../components/Footer.astro';
 import Layout from '../layouts/Layout.astro';
 import PopUp from '../components/PopUp';
-import ImagePOp from '../assets/popup2.webp'
+import ImagePOp from '../assets/nueavs.jpg'
 
 ---
 
 <Layout>
-
+	 <PopUp client:load>
+   
+    <a href="https://calendly.com/contacto-favlash/citas" target="_blank"><img src={ImagePOp.src} alt="Popup" /></a>
+  </PopUp>
 	<Navbar />
 	<Head />
 	<Nosotros />
