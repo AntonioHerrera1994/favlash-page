@@ -281,17 +281,17 @@ height: 300px;
     }
     .modal-content-esp-1 {
       max-width: 330px!important;
-      height: 250px;
+      height: 280px;
     }
 
     .modal-content-esp-2 {
       max-width: 330px!important;
-      height: 550px!important;
+      height: 600px!important;
     }
 
     .modal-content-esp-3 {
       max-width: 330px!important;
-      height: 550px!important;
+      height: 600px!important;
     }
 
     .modal-content-esp-4 {
@@ -341,7 +341,7 @@ height: 300px;
     border-radius: 12px;
     width: 100%;
     max-width: 500px;
-    height: 250px;
+
   }
   .cerrar-esp-1 {
     float: right;
@@ -373,7 +373,7 @@ height: 300px;
     border-radius: 12px;
     width: 100%;
     max-width: 500px;
-    height: 740px;
+   
   }
   .cerrar-esp-2 {
     float: right;
@@ -405,7 +405,7 @@ height: 300px;
     border-radius: 12px;
     width: 100%;
     max-width: 500px;
-    height: 740px;
+    
   }
   .cerrar-esp-3 {
     float: right;
