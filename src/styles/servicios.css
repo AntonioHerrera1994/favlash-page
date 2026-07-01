@@ -1,5 +1,3 @@
-
-
 .servicios{
     padding: 1rem 6rem 6rem 6rem;
     margin: 0;
@@ -32,7 +30,7 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.112);
-    padding: 3rem;
+    padding: 3rem 1.8rem 3rem 1.8rem;
     background-color:#a67c52;
     border-radius: 12px;
     height: 300px;
@@ -97,7 +95,7 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.112);
-    padding: 3rem;
+padding: 3rem 1.8rem 3rem 1.8rem;
     background-color: white;
     border-radius: 12px;
     height: 300px;
@@ -158,7 +156,7 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.112);
-    padding: 3rem;
+padding: 3rem 1.8rem 3rem 1.8rem;
     background-color: white;
     border-radius: 12px;
     height: 300px;
@@ -215,7 +213,7 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.112);
-    padding: 3rem;
+padding: 3rem 1.8rem 3rem 1.8rem;
     background-color: white;
     border-radius: 12px;
 height: 300px;
@@ -290,8 +288,9 @@ height: 300px;
     }
 
     .modal-content-esp-3 {
-      max-width: 330px!important;
-      height: 600px!important;
+      max-width: 300px!important;
+      max-height: 80vh!important;
+      height: auto!important;
     }
 
     .modal-content-esp-4 {
@@ -391,10 +390,9 @@ height: 300px;
    .modal-esp-3 {
     display: none;
     position: fixed;
+    inset: 0;
     z-index: 10;
     padding-top: 30px;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
   }
@@ -405,7 +403,10 @@ height: 300px;
     border-radius: 12px;
     width: 100%;
     max-width: 500px;
-    
+    max-height: 85vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
   }
   .cerrar-esp-3 {
     float: right;
@@ -453,3 +454,59 @@ height: 300px;
       }
       
     
+
+/* ---------- Tabs dentro del modal de pestañas ---------- */
+.modal-tabs {
+  width: 100%;
+  margin-top: 1rem;
+  box-sizing: border-box;
+}
+
+.modal-tabs-nav {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #f0e9e2;
+}
+
+.modal-tab-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 10px 4px;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.modal-tab-btn:hover {
+  color: #a67c52;
+}
+
+.modal-tab-btn.active {
+  color: #a67c52;
+  font-weight: bold;
+  border-bottom: 3px solid #a67c52;
+}
+
+.modal-tab-panel {
+  display: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-tab-panel.active {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-tab-panel img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
