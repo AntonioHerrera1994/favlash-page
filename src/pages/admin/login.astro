@@ -1,0 +1,151 @@
+---
+const error = Astro.url.searchParams.get('error');
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar sesión — FavLash Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="login-wrap">
+      <form method="POST" action="/api/auth/login" class="login-card">
+        <div class="login-brand">
+          FavLash <span>Admin</span>
+        </div>
+        <p class="login-sub">Inicia sesión para gestionar tus citas</p>
+
+        {error && (
+          <p class="login-error">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="9" />
+              <line x1="12" y1="8" x2="12" y2="13" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            Correo o contraseña incorrectos.
+          </p>
+        )}
+
+        <label class="login-label">
+          Correo
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+
+        <label class="login-label">
+          Contraseña
+          <input type="password" name="password" required autocomplete="current-password" />
+        </label>
+
+        <button type="submit" class="login-btn">Entrar</button>
+      </form>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: #0d0d0e;
+  }
+</style>
+
+<style>
+  .login-wrap {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: 'Inter', system-ui, sans-serif;
+    padding: 1rem;
+  }
+
+  .login-card {
+    background: #18171a;
+    border: 1px solid #2a282d;
+    border-radius: 14px;
+    padding: 2.25rem;
+    width: min(360px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  }
+
+  .login-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #f2ede7;
+  }
+
+  .login-brand span {
+    color: #a67c52;
+  }
+
+  .login-sub {
+    color: #9a938c;
+    font-size: 0.85rem;
+    margin: -0.5rem 0 0;
+  }
+
+  .login-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: #9a938c;
+  }
+
+  .login-label input {
+    background: #0f0e10;
+    border: 1px solid #2a282d;
+    border-radius: 8px;
+    padding: 0.65rem 0.75rem;
+    color: #f2ede7;
+    font-family: inherit;
+    font-size: 0.9rem;
+  }
+
+  .login-label input:focus {
+    outline: 2px solid #a67c52;
+    outline-offset: 1px;
+  }
+
+  .login-btn {
+    margin-top: 0.4rem;
+    background: #a67c52;
+    color: #17130f;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .login-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(166, 124, 82, 0.35);
+  }
+
+  .login-error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(138, 106, 99, 0.15);
+    color: #e2a49b;
+    padding: 0.6rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    margin: 0;
+  }
+</style>
