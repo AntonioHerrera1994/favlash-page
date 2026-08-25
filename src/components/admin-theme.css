@@ -538,3 +538,144 @@
   gap: 0.75rem;
   font-size: 0.8rem;
 }
+
+/* ===== Elementos exclusivos de móvil (ocultos en escritorio) ===== */
+.mobile-topbar,
+.mobile-bottomnav {
+  display: none;
+}
+
+@media (max-width: 780px) {
+  .admin-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .mobile-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .mobile-topbar .icon-btn {
+    color: var(--text-muted);
+  }
+
+  .mobile-bottomnav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 0.5rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom));
+    z-index: 20;
+  }
+
+  .bottomnav-item {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 0.5rem 1.25rem;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+  }
+
+  .bottomnav-item.activo {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .main-area {
+    padding: 1.25rem 1.1rem calc(4.5rem + env(safe-area-inset-bottom));
+  }
+
+  .header-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .header-bar h1 {
+    font-size: 1.7rem;
+  }
+
+  .btn-crear {
+    justify-content: center;
+  }
+
+  .grid-tarjetas {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .main-area {
+    padding: 1rem 0.9rem calc(4.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+.campo-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.campo-check input {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+}
+
+.campo-fila {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.campo-fila .campo-label {
+  flex: 1;
+}
+
+.bloqueos-lista {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bloqueo-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+}
+
+.bloqueo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.bloqueo-motivo {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
