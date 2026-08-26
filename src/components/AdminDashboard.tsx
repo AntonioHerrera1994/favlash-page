@@ -6,11 +6,16 @@ import interactionPlugin from '@fullcalendar/interaction';
 import AdminList from './AdminList';
 import NuevaCitaForm from './NuevaCitaForm';
 import ServiciosPanel from './ServiciosPanel';
+import ClientasPanel from './ClientasPanel';
+import HorariosPanel from './HorariosPanel';
+import CompartirModal from './CompartirModal';
 
 import './admin-theme.css';
 
 import BloqueoForm from './BloqueoForm';
-import { IconList, IconCalendar, IconPlus, IconLogout, IconTag, IconLock,IconClose } from './icons';
+import { IconList, IconCalendar, IconPlus, IconLogout, IconTag, IconLock,IconClose, IconUsers, IconClock, IconShare } from './icons';
+
+
 
 type Cita = {
   id: string;
@@ -32,12 +37,14 @@ type Bloqueo = {
 }
 
 export default function AdminDashboard() {
-  const [vista, setVista] = useState<'lista' | 'calendario' | 'servicios'>('lista');
+  const [vista, setVista] = useState<'lista' | 'calendario' | 'servicios' | 'clientas' | 'horarios'>('lista');
   const [citas, setCitas] = useState<Cita[]>([]);
   const [cargando, setCargando] = useState(true);
   const [mostrarForm, setMostrarForm] = useState(false);
   const [bloqueos, setBloqueos] = useState<Bloqueo[]>([]);
   const [mostrarBloqueo, setMostrarBloqueo] = useState(false);  
+  const [mostrarCompartir, setMostrarCompartir] = useState(false);
+
 
   function cargarCitas() {
     setCargando(true);
@@ -94,15 +101,20 @@ async function eliminarBloqueo(id: string) {
 
 
   const opcionesVista = [
-    { valor: 'lista' as const, label: 'Lista', Icono: IconList },
-    { valor: 'calendario' as const, label: 'Calendario', Icono: IconCalendar },
-    { valor: 'servicios' as const, label: 'Servicios', Icono: IconTag },
-  ];
+  { valor: 'lista' as const, label: 'Lista', Icono: IconList },
+  { valor: 'calendario' as const, label: 'Calendario', Icono: IconCalendar },
+  { valor: 'clientas' as const, label: 'Clientas', Icono: IconUsers },
+  { valor: 'servicios' as const, label: 'Servicios', Icono: IconTag },
+  {valor: 'horarios' as const, label:'Horario', Icono:IconClock},
+];
 
-  const TITULOS: Record<typeof vista, { titulo: string; subtitulo: string }> = {
+//diccionario de titulos
+const TITULOS: Record<typeof vista, { titulo: string; subtitulo: string }> = {
   lista: { titulo: 'Citas', subtitulo: 'Actuales y próximas' },
   calendario: { titulo: 'Calendario', subtitulo: 'Vista semanal de tus citas' },
+  clientas: { titulo: 'Clientas', subtitulo: 'Historial y preferencias' },
   servicios: { titulo: 'Servicios', subtitulo: 'Catálogo, precios y duraciones' },
+  horarios: { titulo: ' Horario Laboral', subtitulo: 'Días y horas en que se puede agendar'},
 };
 
  return (
@@ -156,6 +168,9 @@ async function eliminarBloqueo(id: string) {
               <IconLock size={15} /> Bloquear
             </button>
           )}
+          <button className='btn-crear btn-crear-secundario' onClick={() => setMostrarCompartir(true)}>
+          <IconClock size={15} /> Compartir
+          </button>
           <button className="btn-crear" onClick={() => setMostrarForm(true)}>
             <IconPlus size={15} /> Nueva cita
           </button>
@@ -196,10 +211,18 @@ async function eliminarBloqueo(id: string) {
               ))}
             </div>
           )}
+          
         </>
+        
+   ) : vista === 'clientas' ? (
+        <ClientasPanel />
+   ) : vista === 'horarios' ?(
+    <HorariosPanel />
       ) : (
+        
         <ServiciosPanel />
       )}
+      
 
       {mostrarForm && (
         <NuevaCitaForm
@@ -220,6 +243,11 @@ async function eliminarBloqueo(id: string) {
           onCerrar={() => setMostrarBloqueo(false)}
         />
       )}
+      {mostrarCompartir && 
+      <CompartirModal onCerrar={() =>  setMostrarCompartir(false)}
+
+      />
+      }
     </main>
 
     {/* Barra inferior fija — solo visible en móvil, solo iconos */}

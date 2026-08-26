@@ -10,7 +10,8 @@ const esOperacionSensibleDeCitas =
   (url.pathname.startsWith('/api/citas') && request.method !== 'POST') ||
   url.pathname.startsWith('/api/clientas') || 
     (url.pathname.startsWith('/api/servicios') && request.method !== 'GET') ||
-      url.pathname.startsWith('/api/bloqueos');
+      url.pathname.startsWith('/api/bloqueos') ||
+      url.pathname.startsWith('/api/horarios');
 
   if (!isAdminRoute && !esOperacionSensibleDeCitas) {
     return next();

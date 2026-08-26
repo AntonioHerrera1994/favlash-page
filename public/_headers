@@ -1,0 +1,5 @@
+/agendar
+  Content-Security-Policy: frame-ancestors *;
+
+/admin/*
+  X-Frame-Options: DENY

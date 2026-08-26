@@ -124,3 +124,44 @@ export function IconLock({ size = 18 }: IconProps) {
     </svg>
   );
 }
+
+export function IconUsers({ size = 18 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 5 18.5V20" />
+      <circle cx="9.5" cy="8" r="3.2" />
+      <path d="M20 20v-1.5a3.2 3.2 0 0 0-2.2-3" />
+      <path d="M15 5.2a3.2 3.2 0 0 1 0 5.9" />
+    </svg>
+  );
+}
+
+export function IconClock({ size = 18 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <polyline points="12,7 12,12 16,14" />
+    </svg>
+  );
+}
+
+export function IconShare({ size = 15 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="18" cy="5" r="2.8" />
+      <circle cx="6" cy="12" r="2.8" />
+      <circle cx="18" cy="19" r="2.8" />
+      <line x1="8.4" y1="10.6" x2="15.6" y2="6.4" />
+      <line x1="8.4" y1="13.4" x2="15.6" y2="17.6" />
+    </svg>
+  );
+}
+
+export function IconCopy({ size = 14 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="9" y="9" width="12" height="12" rx="2" />
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+    </svg>
+  );
+}

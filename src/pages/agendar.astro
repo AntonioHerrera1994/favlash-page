@@ -1,13 +1,86 @@
 ---
 import BookingWidget from '../components/BookingWidget';
+
+const esEmbed = Astro.url.searchParams.get('embed') === '1';
 ---
 
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <title>Agenda tu cita — FavLash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agenda tu cita — FavLash by Sandy Herrera</title>
+    <meta name="description" content="Agenda tu cita en línea: extensiones de pestañas, cejas, maquillaje y manicura en Tijuana. Elige servicio, fecha y hora al instante." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://favlash.com/agendar" />
+    <meta property="og:title" content="Agenda tu cita — FavLash" />
+    <meta property="og:description" content="Extensiones de pestañas, cejas, maquillaje y manicura en Tijuana. Agenda en línea, sin llamadas." />
+    <meta property="og:image" content="https://favlash.com/og-image.jpg" />
+    <meta property="og:locale" content="es_MX" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Agenda tu cita — FavLash" />
+    <meta name="twitter:description" content="Extensiones de pestañas, cejas, maquillaje y manicura en Tijuana." />
+    <meta name="twitter:image" content="https://favlash.com/og-image.jpg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <BookingWidget client:load />
+  <body class={esEmbed ? 'modo-embed' : ''}>
+    <main class="agendar-page">
+      {!esEmbed && (
+        <a href="/" class="agendar-volver">← Volver a FavLash</a>
+      )}
+      <h1>Agenda tu cita</h1>
+      <p class="agendar-subtitulo">Elige tu servicio, fecha y hora — confirmación al instante.</p>
+      <BookingWidget client:load />
+    </main>
   </body>
 </html>
+
+<style is:global>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #0d0d0e;
+  }
+</style>
+
+<style>
+  .agendar-page {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 4rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #f2ede7;
+  }
+
+  body.modo-embed .agendar-page {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  .agendar-volver {
+    display: inline-block;
+    color: #9a938c;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .agendar-subtitulo {
+    color: #9a938c;
+    margin: 0.35rem 0 1.75rem;
+    font-size: 0.9rem;
+  }
+</style>
