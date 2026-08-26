@@ -171,7 +171,7 @@ const TITULOS: Record<typeof vista, { titulo: string; subtitulo: string }> = {
           <button className='btn-crear btn-crear-secundario' onClick={() => setMostrarCompartir(true)}>
           <IconClock size={15} /> Compartir
           </button>
-          <button className="btn-crear" onClick={() => setMostrarForm(true)}>
+          <button className="btn-crear btn-crear-secundario" onClick={() => setMostrarForm(true)}>
             <IconPlus size={15} /> Nueva cita
           </button>
         </div>
