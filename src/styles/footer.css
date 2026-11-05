@@ -108,3 +108,22 @@ li{
     }
     
 }
+
+.footer-bottom{
+    display:grid;
+    grid-template-columns: 50% 50%;
+    background-color: black;
+    padding: 1rem 3rem 1rem 7rem;   color: rgba(255, 255, 255, 0.779);
+    border-top:rgba(255, 255, 255, 0.212) 1px solid;   
+}   
+
+@media screen and (max-width:800px){
+    .footer-bottom{
+        display:grid;
+        grid-template-columns: 100%;
+        background-color: black;
+        padding: 0.5rem 2rem 0.5rem 2rem;   
+        color: rgba(255, 255, 255, 0.779);
+        border-top:rgba(255, 255, 255, 0.212) 1px solid;   
+    }   
+}
