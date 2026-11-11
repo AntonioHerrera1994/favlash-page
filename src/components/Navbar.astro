@@ -1,69 +1,79 @@
 ---
-import '../styles/navbar.css'
+import '../styles/navbar.css';
 import ImageLogo from '../assets/favlash-horizonta-2.jpg';
+
+// El UTM permite ver en Analytics cuántas personas llegan al Club desde el navbar.
+const CLUB_URL = 'https://club.favlash.com/?utm_source=favlash.com&utm_medium=navbar&utm_campaign=club';
+const CITA_URL = '#agenda-tu-cita';
+
+const links = [
+  { href: '#nosotras', label: 'Nosotras' },
+  { href: '#servicios', label: 'Servicios' },
+  { href: '#testimonios', label: 'Testimonios' },
+];
 ---
 
-<section class="navbar-f">
-<section class="subhead">
-<div class="subhead-grid">
+<a class="fl-skip" href="#main">Saltar al contenido</a>
 
-    <div class="sg-1">
-        <div><i class="bi bi-envelope-paper-heart-fill"></i> <a href="tel:+526646651927" style="text-decoration: none; color: #c7b096;">sundae.hq@gmail.com</a></div>
-        <div style="margin-left: -8rem;"><i class="bi bi-telephone-inbound-fill"></i><a href="tel:+526631208318" style="text-decoration: none; color: #c7b096;">(663) 120-8318</a></div>
-        
+<!-- Barra de contacto: se va con el scroll (solo escritorio) -->
+<div class="fl-topbar">
+  <div class="fl-topbar__in">
+    <div class="fl-topbar__contact">
+      <a href="mailto:sundae.hq@gmail.com"><i class="bi bi-envelope-paper-heart-fill" aria-hidden="true"></i> sundae.hq@gmail.com</a>
+      <a href="tel:+526631208318"><i class="bi bi-telephone-inbound-fill" aria-hidden="true"></i> (663) 120-8318</a>
+    </div>
+    <div class="fl-topbar__social">
+      <span>Síguenos:</span>
+      <a href="https://www.facebook.com/favlash.sandyh" target="_blank" rel="noopener" aria-label="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+      <a href="https://www.instagram.com/favlash.sandyh/" target="_blank" rel="noopener" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+      <a href="https://www.tiktok.com/@favlash" target="_blank" rel="noopener" aria-label="TikTok"><i class="bi bi-tiktok" aria-hidden="true"></i></a>
+      <a href="https://wa.link/n1xc24" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- Centinela: cuando sale de la pantalla, el header se compacta (sin listeners de scroll) -->
+<div id="flSentinel" aria-hidden="true"></div>
+
+<header class="fl-header" id="flHeader">
+  <nav class="fl-nav" aria-label="Principal">
+    <a class="fl-logo" href="/" aria-label="FavLash, inicio">
+      <img src={ImageLogo.src} width={ImageLogo.width} height={ImageLogo.height} alt="FavLash" />
+    </a>
+
+    <ul class="fl-links">
+      {links.map((l) => (
+        <li><a href={l.href} data-spy>{l.label}</a></li>
+      ))}
+    </ul>
+
+    <div class="fl-actions">
+      <a class="fl-btn fl-btn--club" href={CLUB_URL}>
+        <i class="bi bi-stars" aria-hidden="true"></i> Club FavLash
+      </a>
+      <a class="fl-btn fl-btn--primary" href={CITA_URL}>Agenda tu cita</a>
     </div>
 
-    <div class="sg-2">
-    <p>Síguenos:</p>
-       <ul class="lista-hor">
-        <li><a href="https://www.facebook.com/favlash.sandyh" target="_blank"><i class="bi bi-facebook"></i></a></li>
-        <li><a href="https://www.instagram.com/favlash.sandyh/" target="_blank"> <i class="bi bi-instagram"></i></a></li>
-        <li><a href="https://www.tiktok.com/@favlash" target="_blank"><i class="bi bi-tiktok"></i></a></li>
-        <li><a href="https://wa.link/n1xc24" target="_blank"><i class="bi bi-whatsapp"></i></a></li>
+    <button class="fl-burger" id="flBurger" type="button" aria-expanded="false" aria-controls="flMenu" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-
-       </ul>
+  <div class="fl-menu" id="flMenu">
+    <div class="fl-menu__in">
+      <ul>
+        {links.map((l) => (
+          <li><a href={l.href} data-spy>{l.label}</a></li>
+        ))}
+      </ul>
+      <div class="fl-menu__cta">
+        <a class="fl-btn fl-btn--club" href={CLUB_URL}><i class="bi bi-stars" aria-hidden="true"></i> Club FavLash</a>
+        <a class="fl-btn fl-btn--primary" href={CITA_URL}>Agenda tu cita</a>
+      </div>
     </div>
-</div>
-</section>
-
-<nav>
-
-  <div class="logo">
-    <img 
-    src={ImageLogo.src}
-    width="12%"
-    height="50%"
-    alt="favlash-logo"/>
   </div>
+</header>
 
-  <div class="nav-links">
-    <a href="#nosotras">Nosotras</a>
-    <a href="#servicios">Servicios</a>
-    <a href="#testimonios">Testimonios</a>
-  
-  </div>
-
-<!-- From Uiverse.io by alexroumi --> 
-<a href="#agenda-tu-cita"><button class="btn-escritorio"> Agenda Tu Cita</button>
-</a>
-
-  <div class="hamburger" id="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</nav>
-
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#nosotras">Nosotras</a>
-  <a href="#servicios">Servicios</a>
-  <a href="#testimonios">Testimonios</a>
-  <a href="#agenda-tu-cita">Agenda Tu Cita</a>
-
-  <button class="nav-button">Agenda Tu Cita</button>
-</div>
-</section>
 <script>
-    import "../scripts/menu.js"
+  import '../scripts/menu.js';
 </script>
