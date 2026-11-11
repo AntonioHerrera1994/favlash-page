@@ -1,19 +1,88 @@
 ---
-import '../styles/head.css'
-import ImageHead from '../assets/favlash-head.png';
+import { Image } from 'astro:assets';
+import ImageHead from '../assets/favlash-head.webp';
+import '../styles/head.css';
+
+// WhatsApp de FavLash (formato internacional, sin + ni espacios)
+const WA = '526631208318';
+const DEFAULT_MSG = 'Hola, quiero información para agendar una cita en FavLash.';
+
+const services = [
+  { key: 'pestanas', label: 'Pestañas', msg: 'Hola, quiero agendar una cita para extensiones de pestañas.' },
+  { key: 'cejas', label: 'Cejas', msg: 'Hola, quiero agendar una cita para cejas.' },
+  { key: 'unas', label: 'Uñas', msg: 'Hola, quiero agendar una cita para uñas.' },
+];
 ---
 
-<section class="head">
-    <div class="head-content">
+<section class="head" aria-labelledby="head-title">
+  <!-- Para poner el texto a la izquierda: class="head head--left" -->
+  <Image
+    class="head__bg"
+    src={ImageHead}
+    alt="Clienta con extensiones de pestañas y cejas en FavLash, Tijuana"
+    widths={[640, 1024, 1600, 2200]}
+    sizes="100vw"
+    format="webp"
+    quality={78}
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+  <div class="head__scrim" aria-hidden="true"></div>
 
-        <div class="head-grid">
-            <div></div>
-            <div >
-                <h1>Vive la experiencia de un servicio de calidad en Tijuana </h1>
-                <p> Donde cada detalle de tus extensiones de pestañas y cejas es personalizado para cada tipo de clienta.</p>
-                <a class="btn-serv" href="#servicios">Ver los servicios</a>
-            </div>
+  <div class="head__in">
+    <div class="head__copy">
+      <p class="head__eyebrow">Tijuana - San Diego</p>
+
+      <h1 id="head-title">
+        Extensiones de pestañas y cejas <span>en Tijuana</span>
+      </h1>
+
+      <p class="head__lead">
+        Vive la experiencia de un servicio de calidad: cada detalle es personalizado para cada tipo de clienta.
+      </p>
+
+      <div class="head__pick" role="group" aria-labelledby="headPickLabel">
+        <span class="head__pick-label" id="headPickLabel">¿Qué te quieres hacer?</span>
+        <div class="head__chips">
+          {services.map((s) => (
+            <button type="button" class="head__chip" aria-pressed="false" data-msg={s.msg} data-label={s.label}>
+              {s.label}
+            </button>
+          ))}
         </div>
+      </div>
+
+      <div class="head__cta">
+        <a class="hbtn hbtn--primary" href="#agenda-tu-cita">Agenda tu cita</a>
+        <a
+          class="hbtn hbtn--ghost"
+          id="headWa"
+          href={`https://wa.me/${WA}?text=${encodeURIComponent(DEFAULT_MSG)}`}
+          data-wa={WA}
+          data-default={DEFAULT_MSG}
+          target="_blank"
+          rel="noopener"
+        >
+          <i class="bi bi-whatsapp" aria-hidden="true"></i>
+          <span id="headWaLabel">Escríbenos por WhatsApp</span>
+        </a>
+      </div>
+
+      <ul class="head__proof">
+        <li>Korean UV LED</li>
+        <li>Atención personalizada</li>
+        <li>Pestañas · Cejas · Uñas</li>
+        <!-- Cuando tengas calificación real en Google, agrégala aquí: <li>★ 4.9 en Google</li> -->
+      </ul>
+
+      <p class="head__sr" id="headLive" aria-live="polite"></p>
     </div>
-   
+  </div>
+
+ 
 </section>
+
+<script>
+  import '../scripts/hero.js';
+</script>
