@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../../assets/favlash-horizonta-2.jpg';
+import { SITE, wa } from '../../config/site';
+import { r, UI, type Lang } from '../../i18n/routes';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = UI[lang];
+const year = new Date().getFullYear();
+---
+
+<footer class="ftr on-dark">
+  <div class="wrap">
+    <div class="ftr__grid">
+      <div>
+        <Image class="ftr__logo" src={logo} alt="FavLash by Sandy Herrera" width={380} />
+        <p>{t.footer.tagline}</p>
+        <div class="ftr__social">
+          <a href={SITE.social.instagram} target="_blank" rel="noopener" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href={SITE.social.facebook} target="_blank" rel="noopener" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href={SITE.social.tiktok} target="_blank" rel="noopener" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+          <a href={wa(t.waDefault)} target="_blank" rel="noopener" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h3>{t.footer.contacto}</h3>
+        <ul>
+          <li><a href={SITE.mapsLink} target="_blank" rel="noopener">{SITE.address.street},<br />{SITE.address.postalCode} Tijuana, B.C., México</a></li>
+          <li><a href={`tel:${SITE.phone}`}>{lang === 'en' ? '+52 ' : ''}{SITE.phoneDisplay}</a></li>
+          <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>{t.footer.explora}</h3>
+        <ul>
+          <li><a href={r('pestanas', lang)}>{lang === 'es' ? 'Extensiones de pestañas' : 'Lash extensions'}</a></li>
+          <li><a href={r('cejas', lang)}>{lang === 'es' ? 'Cejas' : 'Brows'}</a></li>
+          <li><a href={r('unas', lang)}>{lang === 'es' ? 'Uñas' : 'Nails'}</a></li>
+          <li><a href={r('maquillaje', lang)}>{lang === 'es' ? 'Maquillaje' : 'Makeup'}</a></li>
+          <li><a href={r('quiz', lang)}>{t.nav.quiz}</a></li>
+          <li><a href={r('galeria', lang)}>{t.nav.galeria}</a></li>
+          <li><a href={r('nosotras', lang)}>{t.nav.nosotras}</a></li>
+          <li><a href={r('cuidados', lang)}>{t.nav.cuidados}</a></li>
+          <li><a href={SITE.clubUrl}>{t.club}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>{t.footer.legal}</h3>
+        <ul>
+          <li><a href={r('privacidad', lang)}>{t.footer.privacidad}</a></li>
+          <li><a href={r('terminos', lang)}>{t.footer.terminos}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ftr__bottom">
+      <span>© {year} {SITE.name}. {t.footer.rights}</span>
+      <span>{t.footer.dev} <a href="https://vikingdevtj.com/" target="_blank" rel="noopener">VikingDev Tijuana</a></span>
+    </div>
+  </div>
+</footer>

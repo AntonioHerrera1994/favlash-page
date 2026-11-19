@@ -1,0 +1,84 @@
+---
+import { SITE, wa } from '../../config/site';
+import { UI, type Lang } from '../../i18n/routes';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = UI[lang];
+const es = lang === 'es';
+---
+<section class="sec bg-ink on-dark" id="visitanos">
+  <div class="wrap visit">
+    <div>
+      <p class="eyebrow">{es ? 'Visítanos' : 'Visit us'}</p>
+      <h2 class="d-l">{es ? <>Agenda tu cita en <span class="gold">Tijuana</span></> : <>Your lash studio in <span class="gold">Tijuana</span>, near San Diego</>}</h2>
+      <p class="lead">{es
+        ? 'Inicia tu transformación y realza tu belleza. Estamos en la zona Zermeño, a minutos de la garita: si vienes de San Diego, llegar es fácil.'
+        : 'We are in the Zermeño area of Tijuana, just minutes from the San Ysidro border crossing, an easy trip from San Diego and Chula Vista.'}</p>
+      <dl>
+        <div><dt>{es ? 'Dirección' : 'Address'}</dt><dd><a href={SITE.mapsLink} target="_blank" rel="noopener">{SITE.address.street}, {SITE.address.postalCode} Tijuana, B.C.</a></dd></div>
+        <div><dt>{es ? 'Teléfono y WhatsApp' : 'Phone & WhatsApp'}</dt><dd><a href={`tel:${SITE.phone}`}>{es ? '' : '+52 '}{SITE.phoneDisplay}</a></dd></div>
+        <div><dt>Email</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
+      </dl>
+      <div class="btn-row">
+        <a class="btn btn--gold" href="#calendario" data-open-cal>{t.book}</a>
+        <a class="btn btn--ghost" href={wa(t.waDefault)} target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>{t.whatsapp}</a>
+        <a class="btn btn--ghost" href={SITE.mapsLink} target="_blank" rel="noopener"><i class="bi bi-geo-alt"></i>{es ? 'Cómo llegar' : 'Directions'}</a>
+      </div>
+    </div>
+    <div class="visit__map" data-visit data-view="map">
+      <div class="visit__toggle" role="group" aria-label={es ? 'Cambiar vista' : 'Switch view'}>
+        <button type="button" data-show="map" aria-pressed="true"><i class="bi bi-geo-alt"></i>{es ? 'Mapa' : 'Map'}</button>
+        <button type="button" data-show="cal" aria-pressed="false"><i class="bi bi-calendar-heart"></i>{es ? 'Calendario' : 'Calendar'}</button>
+      </div>
+      <iframe class="visit__pane visit__pane--map" src={SITE.mapsEmbed} title={es ? 'Mapa de FavLash en Tijuana' : 'Map of FavLash in Tijuana'} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <div class="visit__pane visit__pane--cal" data-cal-url={SITE.bookingUrl} hidden>
+        <p class="visit__loading">{es ? 'Cargando calendario…' : 'Loading calendar…'}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Mapa ⇄ calendario de citas (Calendly se carga solo cuando se abre)
+  document.querySelectorAll<HTMLElement>('[data-visit]').forEach((box) => {
+    const cal = box.querySelector<HTMLElement>('.visit__pane--cal')!;
+    const map = box.querySelector<HTMLElement>('.visit__pane--map')!;
+    const btns = box.querySelectorAll<HTMLButtonElement>('[data-show]');
+    let loaded = false;
+    const load = () => {
+      if (loaded) return;
+      loaded = true;
+      const w = document.createElement('div');
+      w.className = 'calendly-inline-widget';
+      w.dataset.url = cal.dataset.calUrl + '?hide_gdpr_banner=1&primary_color=a67c52';
+      w.style.cssText = 'min-width:320px;height:100%;';
+      cal.appendChild(w);
+      const init = () => (window as any).Calendly?.initInlineWidgets?.();
+      if ((window as any).Calendly) init();
+      else {
+        const sc = document.createElement('script');
+        sc.src = 'https://assets.calendly.com/assets/external/widget.js';
+        sc.async = true;
+        sc.onload = init;
+        document.head.appendChild(sc);
+      }
+    };
+    const show = (v: string) => {
+      box.dataset.view = v;
+      map.hidden = v !== 'map';
+      cal.hidden = v !== 'cal';
+      btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.show === v)));
+      if (v === 'cal') {
+        load();
+        try { (window as any).gtag?.('event', 'open_calendar', { page_path: location.pathname }); } catch (e) {}
+      }
+    };
+    btns.forEach((b) => b.addEventListener('click', () => show(b.dataset.show!)));
+    box.closest('section')?.querySelectorAll<HTMLAnchorElement>('[data-open-cal]').forEach((a) => a.addEventListener('click', (e) => {
+      e.preventDefault();
+      show('cal');
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }));
+    if (location.hash === '#calendario') { show('cal'); }
+  });
+</script>

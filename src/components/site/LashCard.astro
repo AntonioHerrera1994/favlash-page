@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+import type { LashSet } from '../../data/servicios';
+import { SITE, wa } from '../../config/site';
+import { UI, type Lang } from '../../i18n/routes';
+
+interface Props { set: LashSet; lang: Lang; tag?: string }
+const { set, lang, tag } = Astro.props;
+const t = UI[lang];
+const L = lang === 'es'
+  ? { nuevo: 'Set nuevo', retoque: 'Retoque 15-21 días', uv: 'Korean UV LED', na: 'Consultar', int: 'Intensidad' }
+  : { nuevo: 'New set', retoque: 'Fill (15-21 days)', uv: 'Korean UV LED', na: 'Ask us', int: 'Intensity' };
+const fmt = (n: number) => '$' + n.toLocaleString('en-US');
+---
+
+<article class="card" data-int={set.intensidad} data-slug={set.slug} id={set.slug} data-reveal>
+  <div class="card__media">
+    <Image src={set.img} alt={`${set.name} — ${lang === 'es' ? 'extensiones de pestañas en Tijuana' : 'lash extensions in Tijuana'}`} widths={[360, 560]} sizes="(min-width: 1100px) 300px, (min-width: 640px) 45vw, 92vw" />
+    {tag && <span class="card__tag">{tag}</span>}
+  </div>
+  <div class="card__body">
+    {set.alias && <span class="card__alias">{set.alias[lang]}</span>}
+    <h3>{set.name}</h3>
+    <p>{set.desc[lang]}</p>
+    <div class="meter" role="img" aria-label={`${L.int} ${set.intensidad}/5`}>
+      {[1, 2, 3, 4, 5].map((n) => <i class={n <= set.intensidad ? 'on' : ''}></i>)}
+    </div>
+    <div class="card__foot">
+      <p class="price" data-price data-nuevo={set.precios.nuevo} data-retoque={set.precios.retoque ?? ''} data-uv={set.precios.uv}
+        data-lnuevo={L.nuevo} data-lretoque={L.retoque} data-luv={L.uv} data-na={L.na}>
+        <small>{L.nuevo}</small>{fmt(set.precios.nuevo)}
+      </p>
+      <div class="card__acts">
+        <a class="icon-btn" href={wa(t.waService(set.name))} target="_blank" rel="noopener" aria-label={`${t.askWa}: ${set.name}`}><i class="bi bi-whatsapp"></i></a>
+        <a class="btn btn--sm" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.bookShort}</a>
+      </div>
+    </div>
+  </div>
+</article>

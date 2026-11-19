@@ -1,0 +1,138 @@
+---
+import { Image } from 'astro:assets';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import Faq from '../components/site/Faq.astro';
+import Visit from '../components/site/Visit.astro';
+import { BROWS, ORGANIC_BROWS } from '../data/servicios';
+import { FAQ_CEJAS } from '../data/contenido';
+import { SITE, wa, mxn } from '../config/site';
+import { r, UI, type Lang } from '../i18n/routes';
+import { breadcrumbLd, faqLd, offerCatalogLd } from '../lib/seo';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const t = UI[lang];
+const name = es ? 'Cejas' : 'Brows';
+const ahorro = ORGANIC_BROWS.separado - ORGANIC_BROWS.precio;
+
+const title = es
+  ? 'Laminado de Cejas en Tijuana desde $350 | Organic Brows | FavLash'
+  : 'Brow Lamination in Tijuana near San Diego | Organic Brows | FavLash';
+const description = es
+  ? 'Laminación de ceja $350, depilación y diseño $200, pigmento $200 y Organic Brows (las tres) por $650 MXN. Estudio de cejas en Tijuana, zona Zermeño.'
+  : 'Brow lamination $350, wax & design $200, tint $200 and Organic Brows (all three) for $650 MXN. Brow studio in Tijuana, minutes from San Diego.';
+const jsonld = [
+  breadcrumbLd([{ name: t.home, path: r('home', lang) }, { name: t.nav.servicios, path: r('servicios', lang) }, { name, path: r('cejas', lang) }]),
+  offerCatalogLd(es ? 'Servicios de cejas' : 'Brow services', r('cejas', lang), [
+    ...BROWS.map((b) => ({ name: b.name[lang], price: b.precio, description: b.desc[lang] })),
+    { name: ORGANIC_BROWS.name, price: ORGANIC_BROWS.precio, description: ORGANIC_BROWS.desc[lang] },
+  ]),
+  faqLd(FAQ_CEJAS, lang),
+];
+---
+
+<SiteLayout lang={lang} page="cejas" title={title} description={description} jsonld={jsonld}>
+  <PageHero lang={lang} crumbs={[{ label: t.nav.servicios, href: r('servicios', lang) }, { label: name }]}
+    eyebrow={es ? 'Estilismo de cejas · Tijuana' : 'Brow styling · Tijuana'}
+    lead={es
+      ? 'Consigue el estilo perfecto: cejas que destacan tu esencia, desde lo clásico hasta lo más moderno.'
+      : 'Get the perfect shape: brows that bring out your essence, from classic to modern.'}
+    image={BROWS[0].img} imageAlt={es ? 'Laminado de cejas en Tijuana' : 'Brow lamination in Tijuana'}
+    stats={[
+      { n: mxn(200), l: es ? 'precio desde (MXN)' : 'starting price (MXN)' },
+      { n: mxn(ahorro), l: es ? 'ahorras con Organic Brows' : 'saved with Organic Brows' },
+    ]}>
+    {es ? <>Laminado y diseño de cejas <span class="gold">en Tijuana</span></> : <>Brow lamination <span class="gold">in Tijuana</span></>}
+    <div slot="actions" class="btn-row">
+      <a class="btn btn--gold" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+      <a class="btn btn--ghost" href={wa(t.waService(es ? 'un servicio de cejas' : 'a brow service'))} target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>{t.whatsapp}</a>
+    </div>
+  </PageHero>
+
+  <!-- ORGANIC BROWS -->
+  <section class="sec bg-cream" id="organic-brows">
+    <div class="wrap feature">
+      <div class="feature__media" data-reveal>
+        <Image src={ORGANIC_BROWS.img} alt="Organic Brows — FavLash Tijuana" widths={[480, 760]} sizes="(min-width: 900px) 45vw, 100vw" />
+      </div>
+      <div>
+        <p class="eyebrow">{es ? 'Paquete completo' : 'Full package'}</p>
+        <h2 class="d-l">Organic <span class="gold">Brows</span></h2>
+        <p class="lead">{ORGANIC_BROWS.desc[lang]}</p>
+        <ul class="ticks">
+          {BROWS.map((b) => <li>{b.name[lang]}</li>)}
+          <li>{es ? 'En una sola cita' : 'In one appointment'}</li>
+        </ul>
+        <div class="pricebox">
+          <div class="price">
+            <small>{es ? 'Paquete' : 'Package'}</small>
+            <s>{mxn(ORGANIC_BROWS.separado)}</s>{mxn(ORGANIC_BROWS.precio)}
+            <span class="save">{es ? `Ahorra ${mxn(ahorro)}` : `Save ${mxn(ahorro)}`}</span>
+          </div>
+          <a class="btn btn--gold" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.bookShort}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS INDIVIDUALES -->
+  <section class="sec" id="precios">
+    <div class="wrap">
+      <div class="sec-head sec-head--split">
+        <div>
+          <p class="eyebrow">{es ? 'Precios 2026' : '2026 prices'}</p>
+          <h2 class="d-l">{es ? <>Servicios <span class="gold">individuales</span></> : <>Individual <span class="gold">services</span></>}</h2>
+        </div>
+        <p class="lead">{es ? 'Combínalos como quieras o elige el paquete Organic Brows.' : 'Mix and match, or choose the Organic Brows package.'}</p>
+      </div>
+      <div class="cards">
+        {BROWS.map((b, i) => (
+          <article class="card" data-reveal style={`--d:${i * 0.08}s`}>
+            <div class="card__media"><Image src={b.img} alt={`${b.name[lang]} — Tijuana`} widths={[360, 560]} sizes="(min-width: 1100px) 380px, 92vw" /></div>
+            <div class="card__body">
+              <h3>{b.name[lang]}</h3>
+              <p>{b.desc[lang]}</p>
+              {b.incluye && <p style="font-size:.86rem"><i class="bi bi-gift" style="color:var(--gold)"></i> {b.incluye[lang]}</p>}
+              <div class="card__foot">
+                <p class="price">{mxn(b.precio)}</p>
+                <div class="card__acts">
+                  <a class="icon-btn" href={wa(t.waService(b.name[lang]))} target="_blank" rel="noopener" aria-label={`${t.askWa}: ${b.name[lang]}`}><i class="bi bi-whatsapp"></i></a>
+                  <a class="btn btn--sm" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.bookShort}</a>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="note">{t.priceNote}</p>
+    </div>
+  </section>
+
+  <!-- COMBINA CON PESTAÑAS -->
+  <section class="sec--tight">
+    <div class="wrap">
+      <div class="club" style="background:var(--ink)" data-reveal>
+        <div>
+          <p class="eyebrow">{es ? 'Combina' : 'Combine'}</p>
+          <h2 class="d-m">{es ? '¿Cejas y pestañas el mismo día?' : 'Brows and lashes on the same day?'}</h2>
+          <p class="lead">{es ? 'Muchas clientas lo hacen. Mira los 11 estilos de pestañas y avísanos al agendar.' : 'Many clients do. Browse our 11 lash styles and let us know when booking.'}</p>
+        </div>
+        <div><a class="btn btn--gold" href={r('pestanas', lang)}>{es ? 'Ver pestañas' : 'See lashes'} <i class="bi bi-arrow-right"></i></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-white">
+    <div class="wrap sec-head sec-head--split" style="align-items:start;margin-bottom:0">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2 class="d-l">{es ? <>Preguntas <span class="gold">frecuentes</span></> : <>Frequently <span class="gold">asked</span></>}</h2>
+      </div>
+      <Faq items={FAQ_CEJAS} lang={lang} />
+    </div>
+  </section>
+
+  <Visit lang={lang} />
+</SiteLayout>

@@ -1,0 +1,60 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import Visit from '../components/site/Visit.astro';
+import { MAQUILLAJE } from '../data/servicios';
+import { SITE, wa } from '../config/site';
+import { r, UI, type Lang } from '../i18n/routes';
+import { breadcrumbLd, offerCatalogLd } from '../lib/seo';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const t = UI[lang];
+const name = es ? 'Maquillaje profesional' : 'Professional makeup';
+const title = es ? 'Maquillaje Profesional en Tijuana | FavLash by Sandy Herrera' : 'Professional Makeup in Tijuana near San Diego | FavLash';
+const description = es
+  ? 'Maquillaje profesional en Tijuana: looks personalizados, de natural a glamuroso, para cada ocasión especial. Cotiza tu look por WhatsApp.'
+  : 'Professional makeup in Tijuana, minutes from San Diego: personalized looks from natural to glam for every special occasion. Get a quote on WhatsApp.';
+const jsonld = [
+  breadcrumbLd([{ name: t.home, path: r('home', lang) }, { name: t.nav.servicios, path: r('servicios', lang) }, { name, path: r('maquillaje', lang) }]),
+  offerCatalogLd(name, r('maquillaje', lang), [{ name, description: MAQUILLAJE.desc[lang] }]),
+];
+---
+
+<SiteLayout lang={lang} page="maquillaje" title={title} description={description} jsonld={jsonld}>
+  <PageHero lang={lang} crumbs={[{ label: t.nav.servicios, href: r('servicios', lang) }, { label: name }]}
+    eyebrow={es ? 'Maquillaje · Tijuana' : 'Makeup · Tijuana'} lead={MAQUILLAJE.desc[lang]}>
+    {es ? <>Maquillaje profesional <span class="gold">en Tijuana</span></> : <>Professional makeup <span class="gold">in Tijuana</span></>}
+    <div slot="actions" class="btn-row">
+      <a class="btn btn--gold" href={wa(t.waService(es ? 'maquillaje profesional' : 'professional makeup'))} target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>{es ? 'Cotiza tu look' : 'Get a quote'}</a>
+      <a class="btn btn--ghost" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+    </div>
+  </PageHero>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="grid g-3">
+        <div class="panel" data-reveal>
+          <i class="bi bi-chat-heart" style="font-size:1.6rem;color:var(--gold)"></i>
+          <h3 class="d-s" style="margin:1rem 0 .5rem">{es ? 'Cuéntanos tu ocasión' : 'Tell us the occasion'}</h3>
+          <p style="color:var(--muted);margin:0">{es ? 'Escríbenos por WhatsApp con la fecha y una foto de referencia del look que te gusta.' : 'Message us on WhatsApp with the date and a reference photo of the look you like.'}</p>
+        </div>
+        <div class="panel" data-reveal style="--d:.08s">
+          <i class="bi bi-palette" style="font-size:1.6rem;color:var(--gold)"></i>
+          <h3 class="d-s" style="margin:1rem 0 .5rem">{es ? 'Look personalizado' : 'A personalized look'}</h3>
+          <p style="color:var(--muted);margin:0">{es ? 'Desde algo natural hasta un glam completo, adaptado a ti.' : 'From natural to full glam, tailored to you.'}</p>
+        </div>
+        <div class="panel" data-reveal style="--d:.16s">
+          <i class="bi bi-eye" style="font-size:1.6rem;color:var(--gold)"></i>
+          <h3 class="d-s" style="margin:1rem 0 .5rem">{es ? 'Complétalo con pestañas' : 'Pair it with lashes'}</h3>
+          <p style="color:var(--muted);margin:0">{es ? 'Unas extensiones o un lash lift hacen que tu maquillaje luzca aún mejor.' : 'Lash extensions or a lash lift make your makeup look even better.'}</p>
+          <p style="margin:1rem 0 0"><a class="link-arrow" href={r('pestanas', lang)}>{es ? 'Ver pestañas' : 'See lashes'} <i class="bi bi-arrow-right"></i></a></p>
+        </div>
+      </div>
+      <p class="note">{es ? 'El precio depende del look y la ocasión: cotiza por WhatsApp.' : 'Pricing depends on the look and occasion: ask for a quote on WhatsApp.'}</p>
+    </div>
+  </section>
+
+  <Visit lang={lang} />
+</SiteLayout>

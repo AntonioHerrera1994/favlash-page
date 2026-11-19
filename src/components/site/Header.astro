@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../../assets/logo-sandy.webp';
+import { SITE, wa } from '../../config/site';
+import { r, ROUTES, UI, type Lang, type RouteKey } from '../../i18n/routes';
+import { LASH_SETS, BROWS } from '../../data/servicios';
+import nailsThumb from '../../assets/servicios/unas.webp';
+
+interface Props { lang: Lang; page: RouteKey }
+const { lang, page } = Astro.props;
+const t = UI[lang];
+const other: Lang = lang === 'es' ? 'en' : 'es';
+const otherHref = ROUTES[page][other];
+
+const svc = [
+  { key: 'pestanas', img: LASH_SETS[3].img, title: { es: 'Pestañas', en: 'Lash extensions' }, sub: { es: '11 estilos + Korean UV LED', en: '11 styles + Korean UV LED' } },
+  { key: 'cejas', img: BROWS[0].img, title: { es: 'Cejas', en: 'Brows' }, sub: { es: 'Laminación, diseño y Organic Brows', en: 'Lamination, design & Organic Brows' } },
+  { key: 'unas', img: nailsThumb, title: { es: 'Uñas', en: 'Nails' }, sub: { es: 'Acrílicas, soft-gel, mani y pedi', en: 'Acrylic, soft gel, mani & pedi' } },
+  { key: 'maquillaje', img: null, icon: 'bi-brush', title: { es: 'Maquillaje', en: 'Makeup' }, sub: { es: 'Looks para cada ocasión', en: 'Looks for every occasion' } },
+] as const;
+const isSvc = ['servicios', 'pestanas', 'cejas', 'unas', 'maquillaje'].includes(page);
+const cur = (k: RouteKey) => (k === page ? 'page' : undefined);
+---
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="topbar__l">
+      <a href={`tel:${SITE.phone}`}><i class="bi bi-telephone" aria-hidden="true"></i>{SITE.phoneDisplay}</a>
+      <a href={SITE.mapsLink} target="_blank" rel="noopener"><i class="bi bi-geo-alt" aria-hidden="true"></i>Tijuana · {lang === 'es' ? 'a minutos de San Diego' : 'minutes from San Diego'}</a>
+    </div>
+    <div class="topbar__r">
+      <a href={SITE.social.instagram} target="_blank" rel="noopener" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+      <a href={SITE.social.facebook} target="_blank" rel="noopener" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+      <a href={SITE.social.tiktok} target="_blank" rel="noopener" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+    </div>
+  </div>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap hdr__in">
+    <a class="hdr__logo" href={r('home', lang)} aria-label="FavLash by Sandy Herrera">
+      <Image src={logo} alt="FavLash by Sandy Herrera" width={240} loading="eager" />
+    </a>
+
+    <nav class="hdr__nav" aria-label={lang === 'es' ? 'Principal' : 'Main'}>
+      <div class="hdr__dd" data-dd>
+        <button type="button" aria-expanded="false" aria-controls="dd-svc" aria-current={isSvc ? 'page' : undefined}>
+          {t.nav.servicios} <i class="bi bi-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div class="dd" id="dd-svc">
+          {svc.map((s) => (
+            <a href={r(s.key, lang)}>
+              {s.img ? <Image src={s.img} alt="" width={112} height={112} /> : <span class="dd__ico" aria-hidden="true"><i class="bi bi-brush"></i></span>}
+              <div><strong>{s.title[lang]}</strong><span>{s.sub[lang]}</span></div>
+            </a>
+          ))}
+          <a class="dd__all" href={r('quiz', lang)}><span>✦ {t.nav.quiz}</span><i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <a href={r('galeria', lang)} aria-current={cur('galeria')}>{t.nav.galeria}</a>
+      <a href={r('nosotras', lang)} aria-current={cur('nosotras')}>{t.nav.nosotras}</a>
+      <a href={r('cuidados', lang)} aria-current={cur('cuidados')}>{t.nav.cuidados}</a>
+    </nav>
+
+    <div class="hdr__actions">
+      <a class="lang" href={otherHref} hreflang={other} aria-label={t.langSwitchLabel}><i class="bi bi-globe2" aria-hidden="true"></i>{other.toUpperCase()}</a>
+      <a class="btn btn--ghost btn--sm" href={SITE.clubUrl}><i class="bi bi-stars" aria-hidden="true"></i>{t.club}</a>
+      <a class="btn btn--gold btn--sm" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+    </div>
+
+    <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label={t.menu}>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <ul>
+    <li><a href={r('servicios', lang)}>{t.nav.servicios} <i class="bi bi-arrow-up-right"></i></a></li>
+    {svc.map((s) => <li class="sub"><a href={r(s.key, lang)}>{s.title[lang]} <i class="bi bi-arrow-right"></i></a></li>)}
+    <li class="sub"><a href={r('quiz', lang)}>✦ {t.nav.quiz} <i class="bi bi-arrow-right"></i></a></li>
+    <li><a href={r('galeria', lang)}>{t.nav.galeria} <i class="bi bi-arrow-up-right"></i></a></li>
+    <li><a href={r('nosotras', lang)}>{t.nav.nosotras} <i class="bi bi-arrow-up-right"></i></a></li>
+    <li><a href={r('cuidados', lang)}>{t.nav.cuidados} <i class="bi bi-arrow-up-right"></i></a></li>
+  </ul>
+  <div class="drawer__cta">
+    <a class="btn btn--gold" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+    <a class="btn btn--ghost" href={wa(t.waDefault)} target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>{t.whatsapp}</a>
+    <a class="btn btn--ghost" href={SITE.clubUrl}><i class="bi bi-stars"></i>{t.club}</a>
+    <a class="btn btn--ghost" href={otherHref} hreflang={other}><i class="bi bi-globe2"></i>{t.langSwitch}</a>
+  </div>
+</div>

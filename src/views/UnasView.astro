@@ -1,0 +1,213 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import Faq from '../components/site/Faq.astro';
+import Visit from '../components/site/Visit.astro';
+import nailsImg from '../assets/servicios/unas.webp';
+import { NAIL_SIZES, NAIL_SETS, NAIL_EXTRAS, MANI_PEDI } from '../data/servicios';
+import { FAQ_UNAS } from '../data/contenido';
+import { SITE, wa, mxn } from '../config/site';
+import { r, UI, type Lang } from '../i18n/routes';
+import { breadcrumbLd, faqLd, offerCatalogLd } from '../lib/seo';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const t = UI[lang];
+const name = es ? 'Uñas' : 'Nails';
+const range = (min: number, max?: number) => (max ? `${mxn(min)} – ${mxn(max)}` : mxn(min));
+
+const title = es
+  ? 'Uñas Acrílicas y Soft-Gel en Tijuana: Precios | FavLash'
+  : 'Acrylic & Soft Gel Nails in Tijuana near San Diego | FavLash';
+const description = es
+  ? 'Uñas acrílicas desde $350, soft-gel desde $400, manicura desde $250 y pedicure desde $450 MXN en Tijuana. Calcula tu precio con nuestro estimador.'
+  : 'Acrylic nails from $350, soft gel from $400, manicures from $250 and pedicures from $450 MXN in Tijuana, minutes from San Diego. Estimate your price online.';
+const jsonld = [
+  breadcrumbLd([{ name: t.home, path: r('home', lang) }, { name: t.nav.servicios, path: r('servicios', lang) }, { name, path: r('unas', lang) }]),
+  offerCatalogLd(es ? 'Servicios de uñas' : 'Nail services', r('unas', lang), [
+    ...NAIL_SETS.flatMap((s) => NAIL_SIZES.filter((z) => s.precios[z.key]).map((z) => ({ name: `${s.name[lang]} — ${z.label[lang]} (${z.largo})`, price: s.precios[z.key] }))),
+    ...MANI_PEDI.map((m) => ({ name: m.name[lang], price: m.precio })),
+  ]),
+  faqLd(FAQ_UNAS, lang),
+];
+
+const estData = {
+  sets: Object.fromEntries(NAIL_SETS.map((s) => [s.key, { name: s.name[lang], p: s.precios }])),
+  sizes: Object.fromEntries(NAIL_SIZES.map((z) => [z.key, `${z.label[lang]} (${z.largo})`])),
+  extras: Object.fromEntries(NAIL_EXTRAS.map((x) => [x.key, { name: x.name[lang], min: x.min, max: x.max ?? null }])),
+  mp: Object.fromEntries(MANI_PEDI.map((m) => [m.key, { name: m.name[lang], p: m.precio }])),
+  empty: es ? 'Elige un servicio para empezar.' : 'Choose a service to start.',
+};
+---
+
+<SiteLayout lang={lang} page="unas" title={title} description={description} jsonld={jsonld}>
+  <PageHero lang={lang} crumbs={[{ label: t.nav.servicios, href: r('servicios', lang) }, { label: name }]}
+    eyebrow={es ? 'Manicura y pedicura · Tijuana' : 'Manicure & pedicure · Tijuana'}
+    lead={es
+      ? 'Consentimos tus manos y pies con técnicas impecables y herramientas previamente desinfectadas y esterilizadas para tu protección.'
+      : 'We pamper your hands and feet with flawless technique and tools that are disinfected and sterilized beforehand for your protection.'}
+    image={nailsImg} imageAlt={es ? 'Uñas acrílicas en Tijuana' : 'Acrylic nails in Tijuana'}
+    stats={[
+      { n: mxn(250), l: es ? 'manicura desde (MXN)' : 'manicure from (MXN)' },
+      { n: mxn(350), l: es ? 'acrílicas desde (MXN)' : 'acrylics from (MXN)' },
+    ]}>
+    {es ? <>Uñas acrílicas y soft-gel <span class="gold">en Tijuana</span></> : <>Acrylic & soft gel nails <span class="gold">in Tijuana</span></>}
+    <div slot="actions" class="btn-row">
+      <a class="btn btn--gold" href="#estimador">{es ? 'Calcula tu precio' : 'Estimate your price'}</a>
+      <a class="btn btn--ghost" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+    </div>
+  </PageHero>
+
+  <!-- ESTIMADOR -->
+  <section class="sec" id="estimador">
+    <div class="wrap">
+      <div class="sec-head sec-head--split">
+        <div>
+          <p class="eyebrow">{es ? 'Interactivo' : 'Interactive'}</p>
+          <h2 class="d-l">{es ? <>Arma tu <span class="gold">servicio</span></> : <>Build your <span class="gold">service</span></>}</h2>
+        </div>
+        <p class="lead">{es ? 'Elige tipo, tamaño y extras para ver un estimado con precios de lista.' : 'Choose type, length and extras to see an estimate based on list prices.'}</p>
+      </div>
+
+      <form class="est" id="est" data-est={JSON.stringify(estData)} onsubmit="return false">
+        <div>
+          <fieldset>
+            <legend><b>1</b>{es ? 'Tipo de uñas' : 'Nail type'}</legend>
+            <div class="opts">
+              {NAIL_SETS.map((s, i) => (
+                <label class="opt"><input type="radio" name="set" value={s.key} checked={i === 0} /><span>{s.name[lang]}<em>{t.from} {mxn(Math.min(...Object.values(s.precios) as number[]))}</em></span></label>
+              ))}
+              <label class="opt"><input type="radio" name="set" value="none" /><span>{es ? 'Sin uñas' : 'No enhancements'}<em>{es ? 'solo mani / pedi' : 'mani / pedi only'}</em></span></label>
+            </div>
+          </fieldset>
+          <fieldset data-size>
+            <legend><b>2</b>{es ? 'Tamaño' : 'Length'}</legend>
+            <div class="opts">
+              {NAIL_SIZES.map((z, i) => (
+                <label class="opt"><input type="radio" name="size" value={z.key} checked={i === 1} /><span>{z.label[lang]}<em>{es ? 'largo' : 'length'} {z.largo}</em></span></label>
+              ))}
+            </div>
+          </fieldset>
+          <fieldset data-extras>
+            <legend><b>3</b>{es ? 'Extras' : 'Add-ons'}</legend>
+            <div class="opts">
+              {NAIL_EXTRAS.map((x) => (
+                <label class="opt"><input type="checkbox" name="extra" value={x.key} /><span>{x.name[lang]}<em>{range(x.min, x.max)}</em></span></label>
+              ))}
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><b>4</b>{es ? 'Manicura y pedicura' : 'Manicure & pedicure'}</legend>
+            <div class="opts">
+              {MANI_PEDI.map((m) => (
+                <label class="opt"><input type="checkbox" name="mp" value={m.key} /><span>{m.name[lang]}<em>{mxn(m.precio)}</em></span></label>
+              ))}
+            </div>
+          </fieldset>
+        </div>
+        <aside class="est__sum on-dark" aria-live="polite">
+          <p class="eyebrow">{es ? 'Tu estimado' : 'Your estimate'}</p>
+          <ul data-lines></ul>
+          <p class="est__total" data-total>$0</p>
+          <p class="est__note">{es ? 'Precio de referencia en MXN. Diseños elaborados y rellenos tienen rango; el total final se confirma en el salón.' : 'Reference price in MXN. Detailed art and fills have a range; the final total is confirmed at the salon.'}</p>
+          <div style="display:grid;gap:.5rem">
+            <a class="btn btn--gold" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+            <a class="btn btn--ghost" data-wa href={wa(t.waDefault)} data-waprefix={es ? 'Hola, quiero agendar en FavLash: ' : 'Hi, I would like to book at FavLash: '} target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>{es ? 'Enviar por WhatsApp' : 'Send on WhatsApp'}</a>
+          </div>
+        </aside>
+      </form>
+    </div>
+  </section>
+
+  <!-- LISTA DE PRECIOS -->
+  <section class="sec bg-cream" id="precios">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">{es ? 'Lista de precios 2026' : '2026 price list'}</p>
+        <h2 class="d-l">{es ? <>Todos los <span class="gold">precios</span></> : <>Full <span class="gold">price list</span></>}</h2>
+      </div>
+      <div class="grid g-2">
+        {NAIL_SETS.map((s) => (
+          <div class="panel" data-reveal>
+            <h3 class="d-s">{s.name[lang]}</h3>
+            <table class="ptable">
+              <thead><tr><th>{es ? 'Tamaño' : 'Length'}</th><th>{es ? 'Precio' : 'Price'}</th></tr></thead>
+              <tbody>{NAIL_SIZES.filter((z) => s.precios[z.key]).map((z) => <tr><td>{z.label[lang]} ({z.largo})</td><td>{mxn(s.precios[z.key]!)}</td></tr>)}</tbody>
+            </table>
+          </div>
+        ))}
+        <div class="panel" data-reveal>
+          <h3 class="d-s">{es ? 'Servicios adicionales' : 'Add-ons'}</h3>
+          <table class="ptable"><tbody>{NAIL_EXTRAS.map((x) => <tr><td>{x.name[lang]}</td><td>{range(x.min, x.max)}</td></tr>)}</tbody></table>
+        </div>
+        <div class="panel" data-reveal>
+          <h3 class="d-s">{es ? 'Manicura y pedicura' : 'Manicure & pedicure'}</h3>
+          <table class="ptable"><tbody>{MANI_PEDI.map((m) => <tr><td>{m.name[lang]}</td><td>{mxn(m.precio)}</td></tr>)}</tbody></table>
+        </div>
+      </div>
+      <p class="note">{t.priceNote}</p>
+    </div>
+  </section>
+
+  <section class="sec bg-white">
+    <div class="wrap sec-head sec-head--split" style="align-items:start;margin-bottom:0">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2 class="d-l">{es ? <>Preguntas <span class="gold">frecuentes</span></> : <>Frequently <span class="gold">asked</span></>}</h2>
+      </div>
+      <Faq items={FAQ_UNAS} lang={lang} />
+    </div>
+  </section>
+
+  <Visit lang={lang} />
+</SiteLayout>
+
+<script>
+  const form = document.getElementById('est') as HTMLFormElement | null;
+  if (form) {
+    const D = JSON.parse(form.dataset.est!);
+    const lines = form.querySelector('[data-lines]')!;
+    const total = form.querySelector('[data-total]')!;
+    const waBtn = form.querySelector<HTMLAnchorElement>('[data-wa]')!;
+    const sizeSet = form.querySelector<HTMLFieldSetElement>('[data-size]')!;
+    const extrasSet = form.querySelector<HTMLFieldSetElement>('[data-extras]')!;
+    const fmt = (n: number) => '$' + n.toLocaleString('en-US');
+
+    const calc = () => {
+      const fd = new FormData(form);
+      const set = fd.get('set') as string;
+      const items: [string, number, number][] = [];
+      const hasSet = set !== 'none';
+      sizeSet.disabled = !hasSet;
+      extrasSet.disabled = !hasSet;
+      sizeSet.style.opacity = extrasSet.style.opacity = hasSet ? '1' : '.45';
+
+      if (hasSet) {
+        const s = D.sets[set];
+        // Soft-gel no tiene XL: deshabilita y mueve a grande si hace falta
+        form.querySelectorAll<HTMLInputElement>('input[name=size]').forEach((i) => (i.disabled = !s.p[i.value]));
+        let size = fd.get('size') as string;
+        if (!s.p[size]) {
+          const g = form.querySelector<HTMLInputElement>('input[name=size][value=grande]')!;
+          g.checked = true; size = 'grande';
+        }
+        items.push([`${s.name} · ${D.sizes[size]}`, s.p[size], s.p[size]]);
+        fd.getAll('extra').forEach((k) => { const x = D.extras[k as string]; items.push([x.name, x.min, x.max ?? x.min]); });
+      }
+      fd.getAll('mp').forEach((k) => { const m = D.mp[k as string]; items.push([m.name, m.p, m.p]); });
+
+      const min = items.reduce((a, i) => a + i[1], 0);
+      const max = items.reduce((a, i) => a + i[2], 0);
+      lines.innerHTML = items.length
+        ? items.map(([n, a, b]) => `<li><span>${n}</span><span>${a === b ? fmt(a) : fmt(a) + '–' + fmt(b)}</span></li>`).join('')
+        : `<li>${D.empty}</li>`;
+      total.textContent = min === max ? fmt(min) : `${fmt(min)} – ${fmt(max)}`;
+      total.classList.remove('price-flash'); void (total as HTMLElement).offsetWidth; total.classList.add('price-flash');
+      const msg = waBtn.dataset.waprefix + items.map((i) => i[0]).join(', ') + (items.length ? ` (${total.textContent} MXN)` : '');
+      waBtn.href = 'https://wa.me/526631208318?text=' + encodeURIComponent(msg);
+    };
+    form.addEventListener('change', calc);
+    calc();
+  }
+</script>

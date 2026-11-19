@@ -1,0 +1,161 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import LashCard from '../components/site/LashCard.astro';
+import { LASH_SETS } from '../data/servicios';
+import { SITE, wa } from '../config/site';
+import { r, UI, type Lang } from '../i18n/routes';
+import { breadcrumbLd } from '../lib/seo';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const t = UI[lang];
+
+type Opt = { t: string; s: string; v: Record<string, string | number> };
+const Q: { q: string; key: string; opts: Opt[] }[] = es ? [
+  { q: '¿Cómo es tu maquillaje del día a día?', key: 'mk', opts: [
+    { t: 'Natural', s: 'Casi nada o nada', v: { i: 1 } },
+    { t: 'Pulido', s: 'Rímel y algo sencillo', v: { i: 2.5 } },
+    { t: 'Glam', s: 'Delineado y pestañas marcadas', v: { i: 4 } },
+    { t: 'Intenso', s: 'Me encanta lo dramático', v: { i: 5 } },
+  ] },
+  { q: '¿Para qué las quieres?', key: 'oc', opts: [
+    { t: 'Mi día a día', s: 'Que se vean bien siempre', v: { i: 2 } },
+    { t: 'Trabajo u oficina', s: 'Elegantes y discretas', v: { i: 1.5 } },
+    { t: 'Un evento', s: 'Boda, fiesta, fotos', v: { i: 4.5 } },
+    { t: 'Vacaciones', s: 'Playa y sol', v: { i: 3, beach: 1 } },
+  ] },
+  { q: '¿Qué textura te gusta más?', key: 'tx', opts: [
+    { t: 'Suave y uniforme', s: 'Clásica o volumen parejo', v: { tx: 'soft' } },
+    { t: 'Wispy', s: 'Con picos suaves y mezcla de largos', v: { tx: 'wispy' } },
+    { t: 'Picos marcados', s: 'Estilo anime / manga', v: { tx: 'spiky' } },
+    { t: 'No sé', s: 'Sorpréndeme', v: { tx: 'any' } },
+  ] },
+  { q: '¿Has usado extensiones antes?', key: 'xp', opts: [
+    { t: 'Es mi primera vez', s: 'Quiero empezar tranquila', v: { adj: -0.75 } },
+    { t: 'Sí, ya he usado', s: 'Conozco lo que me gusta', v: { adj: 0 } },
+  ] },
+] : [
+  { q: 'What is your everyday makeup like?', key: 'mk', opts: [
+    { t: 'Natural', s: 'Little to none', v: { i: 1 } },
+    { t: 'Polished', s: 'Mascara and something simple', v: { i: 2.5 } },
+    { t: 'Glam', s: 'Liner and defined lashes', v: { i: 4 } },
+    { t: 'Bold', s: 'I love drama', v: { i: 5 } },
+  ] },
+  { q: 'What do you want them for?', key: 'oc', opts: [
+    { t: 'Everyday', s: 'Always looking good', v: { i: 2 } },
+    { t: 'Work', s: 'Elegant and understated', v: { i: 1.5 } },
+    { t: 'An event', s: 'Wedding, party, photos', v: { i: 4.5 } },
+    { t: 'Vacation', s: 'Beach and sun', v: { i: 3, beach: 1 } },
+  ] },
+  { q: 'Which texture do you like best?', key: 'tx', opts: [
+    { t: 'Soft & even', s: 'Classic or smooth volume', v: { tx: 'soft' } },
+    { t: 'Wispy', s: 'Soft spikes, mixed lengths', v: { tx: 'wispy' } },
+    { t: 'Defined spikes', s: 'Anime / manga style', v: { tx: 'spiky' } },
+    { t: 'Not sure', s: 'Surprise me', v: { tx: 'any' } },
+  ] },
+  { q: 'Have you worn extensions before?', key: 'xp', opts: [
+    { t: 'First time', s: 'I want to start easy', v: { adj: -0.75 } },
+    { t: 'Yes, I have', s: 'I know what I like', v: { adj: 0 } },
+  ] },
+];
+
+const sets = LASH_SETS.map((s) => ({ slug: s.slug, i: s.intensidad, tx: s.textura, name: s.name }));
+const title = es ? 'Quiz: ¿Qué Estilo de Pestañas Va Contigo? | FavLash Tijuana' : 'Quiz: Which Lash Extension Style Suits You? | FavLash Tijuana';
+const description = es
+  ? 'Responde 4 preguntas y descubre qué estilo de extensiones de pestañas va contigo: Classic, Wispy, Kawaii, Cleopatra y más. FavLash, Tijuana.'
+  : 'Answer 4 questions to find the lash extension style that suits you: classic, wispy, anime, volume and more. FavLash, Tijuana near San Diego.';
+const jsonld = [breadcrumbLd([{ name: t.home, path: r('home', lang) }, { name: t.nav.quiz, path: r('quiz', lang) }])];
+---
+
+<SiteLayout lang={lang} page="quiz" title={title} description={description} jsonld={jsonld}>
+  <PageHero lang={lang} crumbs={[{ label: t.nav.servicios, href: r('servicios', lang) }, { label: t.nav.quiz }]}
+    eyebrow={es ? 'Quiz · 30 segundos' : 'Quiz · 30 seconds'}
+    lead={es ? 'Cuatro preguntas rápidas y te mostramos los sets que mejor van con tu estilo. En tu cita, Sandy ajusta el diseño a la forma de tu ojo.' : 'Four quick questions and we will show you the sets that best match your style. At your appointment, Sandy fine-tunes the design to your eye shape.'}>
+    {es ? <>Encuentra <span class="gold">tu estilo</span></> : <>Find <span class="gold">your style</span></>}
+  </PageHero>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="quiz" id="quiz" data-sets={JSON.stringify(sets)}>
+        <div class="quiz__bar" aria-hidden="true"><i></i></div>
+        {Q.map((q, n) => (
+          <div class={`quiz__step${n === 0 ? ' is-on' : ''}`} data-step={n} data-key={q.key}>
+            <p class="eyebrow">{es ? 'Pregunta' : 'Question'} {n + 1} / {Q.length}</p>
+            <h2 class="quiz__q">{q.q}</h2>
+            <div class="quiz__opts">
+              {q.opts.map((o) => <button type="button" data-v={JSON.stringify(o.v)}><strong>{o.t}</strong><span>{o.s}</span></button>)}
+            </div>
+            {n > 0 && <div class="quiz__nav"><button type="button" class="quiz__back" data-back>← {es ? 'Atrás' : 'Back'}</button></div>}
+          </div>
+        ))}
+        <div class="quiz__step quiz__res" data-step="res" aria-live="polite">
+          <p class="eyebrow">{es ? 'Tu resultado' : 'Your result'}</p>
+          <h2 class="quiz__q">{es ? 'Estos sets van contigo' : 'These sets suit you'}</h2>
+          <p class="lead" style="margin-top:0">{es ? 'Tip: cualquiera de ellos puede hacerse con Korean UV LED para mayor duración y comodidad.' : 'Tip: any of them can be done with Korean UV LED for longer wear and more comfort.'}</p>
+          <div class="cards" id="quiz-res">
+            {LASH_SETS.map((s) => <LashCard set={s} lang={lang} />)}
+          </div>
+          <div class="btn-row">
+            <a class="btn btn--gold" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+            <a class="btn btn--ghost" data-share href={wa(t.waDefault)} data-prefix={es ? 'Hola, hice el quiz de FavLash y me salió: ' : 'Hi, I took the FavLash quiz and got: '} target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>{es ? 'Enviar resultado' : 'Send my result'}</a>
+            <button type="button" class="btn btn--ghost" data-restart>{es ? 'Repetir quiz' : 'Retake quiz'}</button>
+            <a class="link-arrow" href={r('pestanas', lang)}>{es ? 'Ver los 11 estilos' : 'See all 11 styles'} <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</SiteLayout>
+
+<script>
+  const root = document.getElementById('quiz');
+  if (root) {
+    const sets: { slug: string; i: number; tx: string; name: string }[] = JSON.parse(root.dataset.sets!);
+    const steps = [...root.querySelectorAll<HTMLElement>('.quiz__step')];
+    const bar = root.querySelector<HTMLElement>('.quiz__bar i')!;
+    const total = steps.length - 1;
+    const ans: Record<string, any> = {};
+    let cur = 0;
+    const go = (n: number) => {
+      steps.forEach((s, i) => s.classList.toggle('is-on', i === n));
+      cur = n;
+      bar.style.setProperty('--w', (n / total) * 100 + '%');
+      root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    const result = () => {
+      const target = (ans.mk.i + ans.oc.i) / 2 + (ans.xp.adj || 0);
+      const pref = ans.tx.tx;
+      const scored = sets.map((s) => {
+        let d = Math.abs(s.i - target);
+        if (pref !== 'any' && s.tx !== pref) d += 1.5;
+        if (ans.oc.beach && s.slug === 'aloha-lashes') d -= 1.5;
+        return { ...s, d };
+      }).sort((a, b) => a.d - b.d);
+      const top = scored.slice(0, 2).map((s) => s.slug);
+      const grid = document.getElementById('quiz-res')!;
+      [...grid.children].forEach((c) => {
+        const el = c as HTMLElement;
+        const k = top.indexOf(el.dataset.slug!);
+        el.classList.toggle('is-hidden', k === -1);
+        el.classList.toggle('is-match', k === 0);
+        el.style.order = String(k);
+        el.classList.add('in');
+      });
+      const share = root.querySelector<HTMLAnchorElement>('[data-share]')!;
+      const names = scored.slice(0, 2).map((s) => s.name).join(' / ');
+      share.href = 'https://wa.me/526631208318?text=' + encodeURIComponent(share.dataset.prefix + names);
+      try { (window as any).gtag?.('event', 'quiz_complete', { result: top.join(',') }); } catch (e) {}
+    };
+    steps.forEach((step, n) => {
+      step.querySelectorAll<HTMLButtonElement>('.quiz__opts button').forEach((b) => b.addEventListener('click', () => {
+        ans[step.dataset.key!] = JSON.parse(b.dataset.v!);
+        if (n + 1 === total) { result(); }
+        go(n + 1);
+      }));
+      step.querySelector('[data-back]')?.addEventListener('click', () => go(n - 1));
+    });
+    root.querySelector('[data-restart]')!.addEventListener('click', () => go(0));
+  }
+</script>

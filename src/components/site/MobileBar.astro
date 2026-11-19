@@ -1,0 +1,12 @@
+---
+import { SITE, wa } from '../../config/site';
+import { UI, type Lang } from '../../i18n/routes';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = UI[lang];
+---
+
+<div class="mbar" id="mbar">
+  <a class="btn btn--gold" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+  <a class="btn btn--wa" href={wa(t.waDefault)} target="_blank" rel="noopener" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+</div>

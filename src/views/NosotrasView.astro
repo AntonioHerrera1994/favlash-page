@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import Testimonials from '../components/site/Testimonials.astro';
+import Visit from '../components/site/Visit.astro';
+import sandy from '../assets/sandy2.webp';
+import { UV_LED } from '../data/servicios';
+import { SITE } from '../config/site';
+import { r, UI, type Lang } from '../i18n/routes';
+import { breadcrumbLd } from '../lib/seo';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const t = UI[lang];
+const values = es ? [
+  { i: 'bi-stars', t: 'Dominio de técnicas de vanguardia', d: 'Nos mantenemos a la vanguardia de las últimas tendencias en extensiones de pestañas, micropigmentación y técnicas de belleza.' },
+  { i: 'bi-person-heart', t: 'Atención personalizada', d: 'Comprendemos tus deseos y te ofrecemos un servicio profesional con un resultado que supera expectativas.' },
+  { i: 'bi-flower1', t: 'Ambiente relajante', d: 'Nuestro estudio es tu oasis de tranquilidad: un lugar para desconectar, relajarte y disfrutar.' },
+  { i: 'bi-gem', t: 'Productos premium y tecnología avanzada', d: 'Usamos productos de marcas reconocidas y seguras del mercado para máxima calidad, durabilidad y cuidado.' },
+] : [
+  { i: 'bi-stars', t: 'Cutting-edge techniques', d: 'We stay on top of the latest trends in lash extensions, micropigmentation and beauty techniques.' },
+  { i: 'bi-person-heart', t: 'Personalized care', d: 'We listen to what you want and deliver a professional service with results that exceed expectations.' },
+  { i: 'bi-flower1', t: 'A relaxing space', d: 'Our studio is your calm oasis: a place to disconnect, relax and enjoy.' },
+  { i: 'bi-gem', t: 'Premium products & advanced tech', d: 'We use trusted, well-known brands for top quality, durability and care.' },
+];
+const title = es ? 'Nosotras: Sandy Herrera y el Estudio FavLash en Tijuana' : 'About Sandy Herrera & the FavLash Studio in Tijuana';
+const description = es
+  ? 'Conoce FavLash by Sandy Herrera, estudio de belleza en Tijuana especializado en extensiones de pestañas, cejas y uñas con productos premium y Korean UV LED.'
+  : 'Meet FavLash by Sandy Herrera, a Tijuana beauty studio near San Diego specializing in lash extensions, brows and nails with premium products and Korean UV LED.';
+const jsonld = [breadcrumbLd([{ name: t.home, path: r('home', lang) }, { name: t.nav.nosotras, path: r('nosotras', lang) }])];
+---
+
+<SiteLayout lang={lang} page="nosotras" title={title} description={description} jsonld={jsonld}>
+  <PageHero lang={lang} crumbs={[{ label: t.nav.nosotras }]} eyebrow={es ? 'Nosotras' : 'About us'}
+    lead={es ? 'Trabajamos con productos de la más alta calidad que te brindan un servicio excepcional y garantizado. Tu bienestar y satisfacción son nuestra inspiración.' : 'We work with the highest-quality products for exceptional, guaranteed service. Your well-being and satisfaction are our inspiration.'}
+    image={sandy} imageAlt={es ? 'Sandy Herrera, fundadora de FavLash' : 'Sandy Herrera, founder of FavLash'}>
+    {es ? <>FavLash by <span class="gold">Sandy Herrera</span></> : <>FavLash by <span class="gold">Sandy Herrera</span></>}
+    <div slot="actions" class="btn-row">
+      <a class="btn btn--gold" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+      <a class="btn btn--ghost" href={SITE.social.instagram} target="_blank" rel="noopener"><i class="bi bi-instagram"></i>Instagram</a>
+    </div>
+  </PageHero>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">{es ? 'Lo que nos distingue' : 'What sets us apart'}</p>
+        <h2 class="d-l">{es ? <>Nuestra <span class="gold">forma de trabajar</span></> : <>How we <span class="gold">work</span></>}</h2>
+      </div>
+      <div class="values">
+        {values.map((v) => <div data-reveal><i class={`bi ${v.i}`}></i><h3>{v.t}</h3><p>{v.d}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-cream">
+    <div class="wrap feature">
+      <div class="feature__media" data-reveal>
+        <Image src={UV_LED.img} alt="Korean UV LED — FavLash" widths={[480, 760]} sizes="(min-width: 900px) 45vw, 100vw" />
+      </div>
+      <div>
+        <p class="eyebrow">{es ? 'Tecnología' : 'Technology'}</p>
+        <h2 class="d-l">Korean <span class="gold">UV LED</span></h2>
+        <p class="lead">{es ? 'Trajimos a Tijuana lo más novedoso de Corea en extensiones de pestañas.' : 'We brought the newest Korean lash extension technique to Tijuana.'} {UV_LED.duracion[lang]}</p>
+        <ul class="ticks">{UV_LED.beneficios.map((b) => <li>{b[lang]}</li>)}</ul>
+        <div class="btn-row"><a class="link-arrow" href={r('pestanas', lang) + '#korean-uv-led'}>{es ? 'Ver precios' : 'See prices'} <i class="bi bi-arrow-right"></i></a></div>
+      </div>
+    </div>
+  </section>
+
+  <Testimonials lang={lang} />
+  <Visit lang={lang} />
+</SiteLayout>

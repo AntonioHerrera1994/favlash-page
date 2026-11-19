@@ -1,0 +1,104 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import Faq from '../components/site/Faq.astro';
+import Visit from '../components/site/Visit.astro';
+import { FAQ_GENERAL, FAQ_PESTANAS, FAQ_CEJAS, FAQ_UNAS } from '../data/contenido';
+import { r, UI, type Lang } from '../i18n/routes';
+import { breadcrumbLd, faqLd } from '../lib/seo';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const t = UI[lang];
+
+const blocks = es ? [
+  { id: 'primera-visita', t: 'Tu primera visita', items: [
+    'Llega con los ojos limpios, sin maquillaje ni rímel.',
+    'Si usas lentes de contacto, trae tu estuche para retirarlos durante el servicio.',
+    'Trae una foto de referencia del look que te gusta.',
+    'Avísanos si tienes alguna sensibilidad o alergia antes de empezar.',
+  ] },
+  { id: 'pestanas', t: 'Cuidado de extensiones de pestañas', items: [
+    'Evita mojarlas, el vapor y el sauna durante las primeras 24 horas.',
+    'Límpialas con productos sin aceite y cepíllalas suavemente cada día.',
+    'No las frotes ni las jales; evita el rímel y los enchinadores.',
+    'Agenda tu retoque entre 15 y 21 días para mantenerlas llenas.',
+  ] },
+  { id: 'cejas', t: 'Cuidado después del laminado de cejas', items: [
+    'Evita mojarlas y maquillarlas durante las primeras 24 horas.',
+    'Usa el suero regenerador incluido para mantenerlas hidratadas.',
+    'A partir de la tercera semana usa el gel incluido para peinarlas.',
+  ] },
+  { id: 'unas', t: 'Cuidado de uñas', items: [
+    'Usa guantes para limpiar y lavar trastes.',
+    'Hidrata tus cutículas con aceite a diario.',
+    'No uses tus uñas como herramienta; si se levanta una, agenda una reposición.',
+  ] },
+] : [
+  { id: 'first-visit', t: 'Your first visit', items: [
+    'Arrive with clean eyes, no makeup or mascara.',
+    'If you wear contact lenses, bring your case to remove them during the service.',
+    'Bring a reference photo of the look you like.',
+    'Let us know about any sensitivity or allergy before we begin.',
+  ] },
+  { id: 'lashes', t: 'Lash extension aftercare', items: [
+    'Avoid water, steam and saunas for the first 24 hours.',
+    'Cleanse with oil-free products and gently brush them every day.',
+    'Do not rub or pull them; skip mascara and lash curlers.',
+    'Book your fill within 15 to 21 days to keep them full.',
+  ] },
+  { id: 'brows', t: 'Brow lamination aftercare', items: [
+    'Avoid water and makeup on your brows for the first 24 hours.',
+    'Use the included regenerating serum to keep them hydrated.',
+    'From week 3, use the included gel to brush them into place.',
+  ] },
+  { id: 'nails', t: 'Nail care', items: [
+    'Wear gloves when cleaning and washing dishes.',
+    'Moisturize your cuticles with oil daily.',
+    'Do not use your nails as tools; if one lifts, book a repair.',
+  ] },
+];
+const allFaq = [...FAQ_GENERAL, ...FAQ_PESTANAS, ...FAQ_CEJAS, ...FAQ_UNAS];
+const title = es ? 'Cuidados y Preguntas Frecuentes | FavLash Tijuana' : 'Aftercare & FAQ | FavLash Lash Studio, Tijuana';
+const description = es
+  ? 'Cómo prepararte para tu cita y cuidar tus extensiones de pestañas, laminado de cejas y uñas. Respuestas a preguntas frecuentes de FavLash en Tijuana.'
+  : 'How to prepare for your appointment and care for lash extensions, brow lamination and nails. FAQ for FavLash in Tijuana, near San Diego.';
+const jsonld = [breadcrumbLd([{ name: t.home, path: r('home', lang) }, { name: t.nav.cuidados, path: r('cuidados', lang) }]), faqLd(allFaq, lang)];
+---
+
+<SiteLayout lang={lang} page="cuidados" title={title} description={description} jsonld={jsonld}>
+  <PageHero lang={lang} crumbs={[{ label: t.nav.cuidados }]} eyebrow={es ? 'Antes y después de tu cita' : 'Before & after your visit'}
+    lead={es ? 'Recomendaciones generales para que tu resultado dure más. En tu cita te damos indicaciones específicas para tu servicio.' : 'General tips to make your results last. At your appointment we give you specific guidance for your service.'}>
+    {es ? <>Cuidados y <span class="gold">preguntas frecuentes</span></> : <>Aftercare & <span class="gold">FAQ</span></>}
+    <div slot="actions" class="toc">
+      {blocks.map((b) => <a class="btn btn--ghost btn--sm" href={`#${b.id}`}>{b.t}</a>)}
+      <a class="btn btn--sm" href="#faq">FAQ</a>
+    </div>
+  </PageHero>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="grid g-2">
+        {blocks.map((b, i) => (
+          <div class="panel" id={b.id} data-reveal style={`--d:${(i % 2) * 0.08}s`}>
+            <h2 class="d-s" style="margin-bottom:1rem">{b.t}</h2>
+            <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">{b.items.map((x) => <li style="margin-bottom:.5rem">{x}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-white" id="faq">
+    <div class="wrap sec-head sec-head--split" style="align-items:start;margin-bottom:0">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2 class="d-l">{es ? <>Preguntas <span class="gold">frecuentes</span></> : <>Frequently <span class="gold">asked</span></>}</h2>
+      </div>
+      <Faq items={allFaq} lang={lang} />
+    </div>
+  </section>
+
+  <Visit lang={lang} />
+</SiteLayout>

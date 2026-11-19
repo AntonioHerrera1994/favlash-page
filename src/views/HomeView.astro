@@ -1,0 +1,236 @@
+---
+import { Image, getImage } from 'astro:assets';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import LashCard from '../components/site/LashCard.astro';
+import Testimonials from '../components/site/Testimonials.astro';
+import Visit from '../components/site/Visit.astro';
+import ClubBand from '../components/site/ClubBand.astro';
+import heroImg from '../assets/favlash-head.webp';
+import sandy from '../assets/sandy2.webp';
+import nailsImg from '../assets/servicios/unas.webp';
+import { LASH_SETS, BROWS, UV_LED } from '../data/servicios';
+import { GALERIA } from '../data/contenido';
+import { SITE, wa } from '../config/site';
+import { r, UI, type Lang } from '../i18n/routes';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const t = UI[lang];
+
+const thumb = async (img: any) => (await getImage({ src: img, width: 520, format: 'webp' })).src;
+const cats = [
+  { key: 'pestanas', n: '01', t: es ? 'Pestañas' : 'Lashes', d: es ? '11 estilos de extensiones, Korean UV LED y Korean Lash Lift.' : '11 extension styles, Korean UV LED and Korean Lash Lift.', p: '$850', img: await thumb(LASH_SETS[3].img) },
+  { key: 'cejas', n: '02', t: es ? 'Cejas' : 'Brows', d: es ? 'Laminación, diseño, pigmento y el paquete Organic Brows.' : 'Lamination, design, tint and the Organic Brows package.', p: '$200', img: await thumb(BROWS[0].img) },
+  { key: 'unas', n: '03', t: es ? 'Uñas' : 'Nails', d: es ? 'Acrílicas, soft-gel, diseños, manicura y pedicura.' : 'Acrylic, soft gel, nail art, manicures and pedicures.', p: '$250', img: await thumb(nailsImg) },
+  { key: 'maquillaje', n: '04', t: es ? 'Maquillaje' : 'Makeup', d: es ? 'Looks personalizados, de natural a glamuroso.' : 'Personalized looks, from natural to glam.', p: null, img: await thumb(GALERIA[0].img) },
+] as const;
+
+const featured = ['classic-beauty', 'luxe-wispy', 'cleopatra-volume'].map((s) => LASH_SETS.find((x) => x.slug === s)!);
+const marquee = [...LASH_SETS.map((s) => s.name), 'Korean Lash Lift', 'Organic Brows'];
+
+const title = es
+  ? 'Extensiones de Pestañas y Cejas en Tijuana | FavLash by Sandy Herrera'
+  : 'Lash Extensions & Brows in Tijuana, near San Diego | FavLash';
+const description = es
+  ? 'Estudio de belleza en Tijuana: extensiones de pestañas (11 estilos y Korean UV LED), laminado de cejas, uñas y maquillaje. Precios claros y cita en línea.'
+  : 'Lash extensions, brow lamination and nails in Tijuana, minutes from San Diego. 11 lash styles, Korean UV LED system, clear prices in MXN. Book online.';
+const jsonld = [{
+  '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url, inLanguage: es ? 'es-MX' : 'en-US',
+  publisher: { '@id': SITE.url + '/#salon' },
+}];
+---
+
+<SiteLayout lang={lang} page="home" title={title} description={description} jsonld={jsonld}>
+  <!-- HERO -->
+  <section class="hero on-dark" aria-labelledby="hero-title">
+    <Image class="hero__img" src={heroImg} alt={es ? 'Clienta con extensiones de pestañas en FavLash, Tijuana' : 'Client with lash extensions at FavLash, Tijuana'} widths={[640, 1024, 1600, 1920]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <div class="wrap hero__in">
+      <div class="hero__copy">
+        <p class="eyebrow">{es ? 'Tijuana · San Diego' : 'Tijuana · minutes from San Diego'}</p>
+        <h1 class="d-xl" id="hero-title">
+          {es ? (
+            <><span class="ln"><span>Extensiones de</span></span><span class="ln"><span>pestañas y cejas</span></span><span class="ln"><span class="gold">en Tijuana</span></span></>
+          ) : (
+            <><span class="ln"><span>Lash extensions</span></span><span class="ln"><span>& brows in</span></span><span class="ln"><span class="gold">Tijuana</span></span></>
+          )}
+        </h1>
+        <p class="lead">{es
+          ? 'Vive la experiencia de un servicio de calidad: cada detalle es personalizado para cada tipo de clienta.'
+          : 'A premium lash and brow studio just across the border. Every set is personalized to your eyes and your style.'}</p>
+        <div class="pick">
+          <span class="pick__label">{es ? '¿Qué te quieres hacer?' : 'What are you looking for?'}</span>
+          <div class="chips">
+            <a class="chip" href={r('pestanas', lang)}>{es ? 'Pestañas' : 'Lashes'} <i class="bi bi-arrow-right"></i></a>
+            <a class="chip" href={r('cejas', lang)}>{es ? 'Cejas' : 'Brows'} <i class="bi bi-arrow-right"></i></a>
+            <a class="chip" href={r('unas', lang)}>{es ? 'Uñas' : 'Nails'} <i class="bi bi-arrow-right"></i></a>
+            <a class="chip" href={r('quiz', lang)}>✦ {es ? 'No sé, ayúdame' : 'Not sure? Take the quiz'}</a>
+          </div>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn--gold" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+          <a class="btn btn--ghost-l" href={wa(t.waDefault)} target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>{es ? 'Escríbenos' : 'Message us'}</a>
+        </div>
+        <ul class="hero__proof">
+          <li>Korean UV LED</li>
+          <li>{es ? 'Atención personalizada' : 'Personalized service'}</li>
+          <li>{es ? 'Pestañas · Cejas · Uñas' : 'Lashes · Brows · Nails'}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUESINA -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      {[...marquee, ...marquee].map((m) => <span>{m}</span>)}
+    </div>
+  </div>
+
+  <!-- CATEGORÍAS -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head sec-head--split">
+        <div>
+          <p class="eyebrow">{es ? 'Servicios' : 'Services'}</p>
+          <h2 class="d-l">{es ? <>Los servicios que <span class="gold">ofrece FavLash</span></> : <>What we <span class="gold">do best</span></>}</h2>
+        </div>
+        <p class="lead">{es
+          ? 'Trabajamos con productos de la más alta calidad para un resultado excepcional. Elige una categoría para ver estilos, precios y cuidados.'
+          : 'We work with top-quality products for an exceptional result. Pick a category to see styles, prices and aftercare.'}</p>
+      </div>
+      <ul class="cats">
+        {cats.map((c) => (
+          <li>
+            <a href={r(c.key, lang)} data-img={c.img}>
+              <span class="cats__n">{c.n}</span>
+              <span class="cats__t">{c.t}<span class="cats__d">{c.d}</span></span>
+              <span class="cats__p">{c.p ? <>{t.from}<strong>{c.p}</strong></> : <strong style="font-size:1rem">{es ? 'Cotiza' : 'Get a quote'}</strong>}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div class="cats__img" aria-hidden="true"><img alt="" src={cats[0].img} /></div>
+    </div>
+  </section>
+
+  <!-- KOREAN UV LED -->
+  <section class="sec bg-cream" id="korean-uv-led">
+    <div class="wrap feature">
+      <div class="feature__media" data-reveal>
+        <Image src={UV_LED.img} alt={es ? 'Extensiones de pestañas con sistema Korean UV LED en Tijuana' : 'Korean UV LED lash extensions in Tijuana'} widths={[480, 760]} sizes="(min-width: 900px) 45vw, 100vw" />
+        <div class="feature__badge"><i class="bi bi-shield-check"></i><span>{UV_LED.garantia[lang]}</span></div>
+      </div>
+      <div>
+        <p class="eyebrow">{es ? 'Lo más novedoso de Corea' : 'The latest from Korea'}</p>
+        <h2 class="d-l">Korean <span class="gold">UV LED</span></h2>
+        <p class="lead">{es ? 'Lo más novedoso de Corea, ahora en Tijuana.' : 'The newest Korean lash technique, now in Tijuana.'} {UV_LED.duracion[lang]}</p>
+        <ul class="ticks">
+          {UV_LED.beneficios.map((b) => <li>{b[lang]}</li>)}
+        </ul>
+        <p class="note">{UV_LED.disponible[lang]}</p>
+        <div class="btn-row">
+          <a class="btn" href={r('pestanas', lang) + '#precios'}>{es ? 'Ver precios UV LED' : 'See UV LED prices'}</a>
+          <a class="btn btn--ghost" href={wa(t.waService('Korean UV LED'))} target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>{t.askWa}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTILOS DESTACADOS + QUIZ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head sec-head--split">
+        <div>
+          <p class="eyebrow">{es ? 'Estilos de pestañas' : 'Lash styles'}</p>
+          <h2 class="d-l">{es ? <>Encuentra <span class="gold">tu estilo</span></> : <>Find <span class="gold">your style</span></>}</h2>
+        </div>
+        <div>
+          <p class="lead" style="margin-top:0">{es
+            ? 'De lo más natural a lo más dramático. ¿No sabes cuál pedir? Responde 4 preguntas y te recomendamos tus sets ideales.'
+            : 'From barely-there to full drama. Not sure which to choose? Answer 4 questions and get your ideal sets.'}</p>
+          <div class="btn-row" style="margin-top:1.25rem">
+            <a class="btn btn--gold" href={r('quiz', lang)}>✦ {es ? 'Hacer el quiz' : 'Take the quiz'}</a>
+            <a class="link-arrow" href={r('pestanas', lang)}>{es ? 'Ver los 11 estilos' : 'See all 11 styles'} <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="cards">
+        {featured.map((s, i) => <LashCard set={s} lang={lang} tag={[es ? 'Más natural' : 'Most natural', es ? 'Equilibrado' : 'Balanced', es ? 'Más dramático' : 'Most dramatic'][i]} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTRAS -->
+  <section class="sec bg-white">
+    <div class="wrap feature">
+      <div class="feature__media" data-reveal>
+        <Image src={sandy} alt={es ? 'Sandy Herrera, fundadora de FavLash' : 'Sandy Herrera, FavLash founder'} widths={[480, 760]} sizes="(min-width: 900px) 45vw, 100vw" />
+      </div>
+      <div>
+        <p class="eyebrow">{es ? 'Nosotras' : 'About us'}</p>
+        <h2 class="d-l">{es ? <>Estudio de belleza <span class="gold">FavLash</span></> : <>The <span class="gold">FavLash</span> studio</>}</h2>
+        <p class="lead">{es
+          ? 'Trabajamos con productos de la más alta calidad que te brindan un servicio excepcional y garantizado. Tu bienestar y satisfacción son nuestra inspiración.'
+          : 'We work with the highest-quality products for exceptional, guaranteed results. Your well-being and satisfaction are our inspiration.'}</p>
+        <ul class="ticks">
+          <li>{es ? 'Técnicas de vanguardia' : 'Cutting-edge techniques'}</li>
+          <li>{es ? 'Atención personalizada' : 'Personalized care'}</li>
+          <li>{es ? 'Ambiente relajante' : 'Relaxing space'}</li>
+          <li>{es ? 'Productos premium' : 'Premium products'}</li>
+        </ul>
+        <div class="btn-row"><a class="link-arrow" href={r('nosotras', lang)}>{es ? 'Conoce a Sandy' : 'Meet Sandy'} <i class="bi bi-arrow-right"></i></a></div>
+      </div>
+    </div>
+  </section>
+
+  <Testimonials lang={lang} />
+
+  <!-- GALERÍA -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head sec-head--split">
+        <div>
+          <p class="eyebrow">{es ? 'Galería' : 'Gallery'}</p>
+          <h2 class="d-l">{es ? <>Trabajos <span class="gold">reales</span></> : <>Real <span class="gold">results</span></>}</h2>
+        </div>
+        <div>
+          <p class="lead" style="margin-top:0">{es ? 'Síguenos en Instagram y no te pierdas ninguna novedad.' : 'Follow us on Instagram for our latest work.'}</p>
+          <div class="btn-row" style="margin-top:1.25rem">
+            <a class="btn btn--ghost" href={SITE.social.instagram} target="_blank" rel="noopener"><i class="bi bi-instagram"></i>@favlash.sandyh</a>
+            <a class="link-arrow" href={r('galeria', lang)}>{es ? 'Ver galería' : 'View gallery'} <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="strip">
+        {GALERIA.slice(0, 9).map((g) => (
+          <a href={r('galeria', lang)} aria-label={g.title[lang]}>
+            <Image src={g.img} alt={g.title[lang]} width={420} />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ClubBand lang={lang} />
+  <Visit lang={lang} />
+
+  <!-- POPUP KOREAN UV LED -->
+  <dialog class="promo" id="promo" slot="end" aria-labelledby="promo-t">
+    <button class="promo__x" type="button" data-close aria-label={t.close}>✕</button>
+    <div class="promo__grid">
+      <div class="promo__img"><Image src={UV_LED.img} alt="" width={520} /></div>
+      <div class="promo__body">
+        <span class="promo__tag">Korean UV LED</span>
+        <h2 class="d-m" id="promo-t">{es ? 'Eyelash Extension' : 'Eyelash Extension'}</h2>
+        <p style="margin:0">{es ? 'Lo más novedoso de Corea, ahora en Tijuana.' : 'The newest from Korea, now in Tijuana.'} {UV_LED.duracion[lang]}</p>
+        <ul>{UV_LED.beneficios.map((b) => <li>{b[lang]}</li>)}</ul>
+        <p style="margin:0;font-size:.9rem;color:var(--muted)">{UV_LED.garantia[lang]}</p>
+        <div class="btn-row" style="margin-top:1rem">
+          <a class="btn btn--gold" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+          <a class="btn btn--ghost" href={r('pestanas', lang) + '#precios'} data-close>{es ? 'Ver precios' : 'See prices'}</a>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</SiteLayout>

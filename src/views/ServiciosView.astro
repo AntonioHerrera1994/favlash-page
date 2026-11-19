@@ -1,0 +1,72 @@
+---
+import { Image } from 'astro:assets';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import Visit from '../components/site/Visit.astro';
+import ClubBand from '../components/site/ClubBand.astro';
+import nailsImg from '../assets/servicios/unas.webp';
+import { LASH_SETS, BROWS, ORGANIC_BROWS } from '../data/servicios';
+import { GALERIA } from '../data/contenido';
+import { mxn } from '../config/site';
+import { r, UI, type Lang } from '../i18n/routes';
+import { breadcrumbLd } from '../lib/seo';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const t = UI[lang];
+
+const items = [
+  { key: 'pestanas', img: LASH_SETS[0].img, t: es ? 'Extensiones de pestañas' : 'Lash extensions', d: es ? '11 estilos, Korean UV LED y Korean Lash Lift.' : '11 styles, Korean UV LED and Korean Lash Lift.', p: `${t.from} ${mxn(850)}` },
+  { key: 'cejas', img: ORGANIC_BROWS.img, t: es ? 'Cejas' : 'Brows', d: es ? 'Laminación, depilación y diseño, pigmento y Organic Brows.' : 'Lamination, wax & design, tint and Organic Brows.', p: `${t.from} ${mxn(200)}` },
+  { key: 'unas', img: nailsImg, t: es ? 'Uñas' : 'Nails', d: es ? 'Acrílicas, soft-gel, extras, manicura y pedicura.' : 'Acrylic, soft gel, add-ons, manicure and pedicure.', p: `${t.from} ${mxn(250)}` },
+  { key: 'maquillaje', img: GALERIA[0].img, t: es ? 'Maquillaje profesional' : 'Professional makeup', d: es ? 'Looks personalizados para cada ocasión especial.' : 'Personalized looks for every special occasion.', p: es ? 'Cotiza por WhatsApp' : 'Quote on WhatsApp' },
+] as const;
+
+const title = es ? 'Servicios de Belleza en Tijuana: Pestañas, Cejas y Uñas | FavLash' : 'Beauty Services in Tijuana near San Diego: Lashes, Brows, Nails | FavLash';
+const description = es
+  ? 'Todos los servicios de FavLash en Tijuana: extensiones de pestañas, laminado de cejas, uñas acrílicas y soft-gel, manicura, pedicura y maquillaje. Precios 2026.'
+  : 'All FavLash services in Tijuana, minutes from San Diego: lash extensions, brow lamination, acrylic and soft gel nails, manicures, pedicures and makeup.';
+const jsonld = [breadcrumbLd([{ name: t.home, path: r('home', lang) }, { name: t.nav.servicios, path: r('servicios', lang) }])];
+---
+
+<SiteLayout lang={lang} page="servicios" title={title} description={description} jsonld={jsonld}>
+  <PageHero lang={lang} crumbs={[{ label: t.nav.servicios }]} eyebrow={es ? 'Servicios · Tijuana' : 'Services · Tijuana'}
+    lead={es ? 'Elige una categoría para ver estilos, precios, cuidados y preguntas frecuentes.' : 'Pick a category to see styles, prices, aftercare and FAQs.'}>
+    {es ? <>Servicios de <span class="gold">belleza</span></> : <>Beauty <span class="gold">services</span></>}
+  </PageHero>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="grid g-2">
+        {items.map((it, i) => (
+          <a class="card" href={r(it.key, lang)} style={`text-decoration:none;--d:${i * 0.06}s`} data-reveal>
+            <div class="card__media" style="aspect-ratio:16/10"><Image src={it.img} alt={it.t} widths={[480, 760]} sizes="(min-width: 900px) 45vw, 100vw" /></div>
+            <div class="card__body">
+              <h2 class="d-m">{it.t}</h2>
+              <p>{it.d}</p>
+              <div class="card__foot"><span class="price" style="font-size:1.1rem">{it.p}</span><span class="link-arrow">{t.seeMore} <i class="bi bi-arrow-right"></i></span></div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec--tight">
+    <div class="wrap">
+      <div class="club" data-reveal>
+        <div>
+          <p class="eyebrow">Quiz</p>
+          <h2 class="d-l">{es ? <>¿No sabes qué <span class="gold">set pedir</span>?</> : <>Not sure which <span class="gold">set to get</span>?</>}</h2>
+          <p class="lead">{es ? 'Responde 4 preguntas y te recomendamos los estilos de pestañas que van contigo.' : 'Answer 4 questions and we will recommend the lash styles that suit you.'}</p>
+          <div class="btn-row"><a class="btn btn--gold" href={r('quiz', lang)}>✦ {t.nav.quiz}</a></div>
+        </div>
+        <div class="club__card" aria-hidden="true" style="background:linear-gradient(135deg,#f1e9e1,#d9c2a7)"><span>Quiz</span><strong>{es ? '4 preguntas' : '4 questions'}</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <ClubBand lang={lang} />
+  <Visit lang={lang} />
+</SiteLayout>

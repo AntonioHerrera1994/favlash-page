@@ -1,0 +1,25 @@
+---
+import { SITE } from '../../config/site';
+import type { Lang } from '../../i18n/routes';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+---
+<section class="sec--tight">
+  <div class="wrap">
+    <div class="club" data-reveal>
+      <div>
+        <p class="eyebrow">Club FavLash</p>
+        <h2 class="d-l">{es ? <>Más que una cita: <span class="gold">un club</span></> : <>More than an appointment: <span class="gold">a club</span></>}</h2>
+        <p class="lead">{es
+          ? 'Un complemento exclusivo de FavLash con tu tarjeta personalizada y un portal donde ves tus beneficios.'
+          : 'An exclusive FavLash add-on with your personalized card and a portal where you see your benefits.'}</p>
+        <div class="btn-row"><a class="btn btn--gold" href={SITE.clubUrl}><i class="bi bi-stars"></i>{es ? 'Conoce el Club' : 'Discover the Club'}</a></div>
+      </div>
+      <div class="club__card" aria-hidden="true">
+        <span>FavLash</span>
+        <div><strong>Club FavLash</strong><br /><span>Member</span></div>
+      </div>
+    </div>
+  </div>
+</section>

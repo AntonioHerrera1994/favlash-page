@@ -1,0 +1,162 @@
+---
+import { Image } from 'astro:assets';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PageHero from '../components/site/PageHero.astro';
+import LashCard from '../components/site/LashCard.astro';
+import Faq from '../components/site/Faq.astro';
+import Visit from '../components/site/Visit.astro';
+import { LASH_SETS, LASH_LIFT, UV_LED } from '../data/servicios';
+import { FAQ_PESTANAS } from '../data/contenido';
+import { SITE, wa, mxn } from '../config/site';
+import { r, UI, type Lang } from '../i18n/routes';
+import { breadcrumbLd, faqLd, offerCatalogLd } from '../lib/seo';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const t = UI[lang];
+const hero = LASH_SETS.find((s) => s.slug === 'luxe-wispy')!;
+
+const labels = es
+  ? ['Todos los estilos', 'Muy natural', 'Natural', 'Equilibrado', 'Intenso', 'Dramático']
+  : ['All styles', 'Very natural', 'Natural', 'Balanced', 'Bold', 'Dramatic'];
+
+const title = es
+  ? 'Extensiones de Pestañas en Tijuana: 11 Estilos y Precios | FavLash'
+  : 'Lash Extensions in Tijuana near San Diego: Styles & Prices | FavLash';
+const description = es
+  ? 'Extensiones de pestañas en Tijuana desde $850 MXN: Classic, Wispy, Volumen, Kawaii, Cleopatra y más. Sistema Korean UV LED con garantía de 7 días y Korean Lash Lift.'
+  : 'Lash extensions in Tijuana from $850 MXN, minutes from San Diego: classic, wispy, volume, anime and more. Korean UV LED system with a 7-day guarantee.';
+const name = es ? 'Extensiones de pestañas' : 'Lash extensions';
+const jsonld = [
+  breadcrumbLd([{ name: t.home, path: r('home', lang) }, { name: t.nav.servicios, path: r('servicios', lang) }, { name, path: r('pestanas', lang) }]),
+  offerCatalogLd(name, r('pestanas', lang), [
+    ...LASH_SETS.map((s) => ({ name: s.name, price: s.precios.nuevo, description: s.desc[lang] })),
+    { name: LASH_LIFT.name, price: LASH_LIFT.precio, description: LASH_LIFT.desc[lang] },
+  ]),
+  faqLd(FAQ_PESTANAS, lang),
+];
+---
+
+<SiteLayout lang={lang} page="pestanas" title={title} description={description} jsonld={jsonld}>
+  <PageHero lang={lang} crumbs={[{ label: t.nav.servicios, href: r('servicios', lang) }, { label: name }]}
+    eyebrow={es ? 'Extensiones de pestañas · Tijuana' : 'Lash extensions · Tijuana'}
+    lead={es
+      ? 'Once estilos, de lo más sutil a lo más dramático, con la opción del sistema Korean UV LED. Cada set se diseña según la forma de tu ojo.'
+      : 'Eleven styles, from subtle to dramatic, with the option of the Korean UV LED system. Every set is designed around your eye shape.'}
+    image={hero.img} imageAlt={es ? 'Extensiones de pestañas Luxe Wispy en Tijuana' : 'Luxe Wispy lash extensions in Tijuana'}
+    stats={[
+      { n: '11', l: es ? 'estilos de set' : 'set styles' },
+      { n: mxn(850), l: es ? 'precio desde (MXN)' : 'starting price (MXN)' },
+      { n: '15-21', l: es ? 'días para retoque' : 'days to fill' },
+    ]}>
+    {es ? <>Extensiones de pestañas <span class="gold">en Tijuana</span></> : <>Lash extensions <span class="gold">in Tijuana</span></>}
+    <div slot="actions" class="btn-row">
+      <a class="btn btn--gold" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+      <a class="btn btn--ghost" href={r('quiz', lang)}>✦ {t.nav.quiz}</a>
+    </div>
+  </PageHero>
+
+  <!-- ESTILOS Y PRECIOS -->
+  <section class="sec" id="precios">
+    <div class="wrap">
+      <div class="sec-head sec-head--split">
+        <div>
+          <p class="eyebrow">{es ? 'Estilos y precios 2026' : 'Styles & prices 2026'}</p>
+          <h2 class="d-l">{es ? <>Elige <span class="gold">tu set</span></> : <>Choose <span class="gold">your set</span></>}</h2>
+        </div>
+        <p class="lead">{es
+          ? 'Cambia entre set nuevo, retoque o Korean UV LED para ver todos los precios al instante. Usa el deslizador para filtrar de natural a dramático.'
+          : 'Switch between new set, fill or Korean UV LED to update every price. Use the slider to filter from natural to dramatic.'}</p>
+      </div>
+
+      <div class="controls">
+        <div class="seg" data-pricemode="sets" role="group" aria-label={es ? 'Tipo de servicio' : 'Service type'}>
+          <button type="button" data-mode="nuevo" aria-pressed="true">{es ? 'Set nuevo' : 'New set'}</button>
+          <button type="button" data-mode="retoque" aria-pressed="false">{es ? 'Retoque' : 'Fill'}</button>
+          <button type="button" data-mode="uv" aria-pressed="false">Korean UV LED</button>
+        </div>
+        <div class="range">
+          <label for="int">{es ? 'Intensidad' : 'Intensity'}</label>
+          <input id="int" type="range" min="0" max="5" step="1" value="0" data-intensity="sets" data-labels={JSON.stringify(labels)} />
+          <output for="int">{labels[0]}</output>
+        </div>
+        <span class="count" data-count="sets" data-tpl={es ? '{n} estilos' : '{n} styles'} aria-live="polite">{LASH_SETS.length}</span>
+      </div>
+
+      <div class="cards" id="sets">
+        {LASH_SETS.map((s) => <LashCard set={s} lang={lang} />)}
+      </div>
+      <p class="note">{t.priceNote} {es ? 'Retoque válido entre 15 y 21 días.' : 'Fills apply between 15 and 21 days.'}</p>
+    </div>
+  </section>
+
+  <!-- KOREAN UV LED -->
+  <section class="sec bg-ink on-dark" id="korean-uv-led">
+    <div class="wrap feature feature--rev">
+      <div class="feature__media" data-reveal>
+        <Image src={UV_LED.img} alt={es ? 'Pestañas con sistema Korean UV LED' : 'Lashes with the Korean UV LED system'} widths={[480, 760]} sizes="(min-width: 900px) 45vw, 100vw" />
+        <div class="feature__badge"><i class="bi bi-shield-check"></i><span>{UV_LED.garantia[lang]}</span></div>
+      </div>
+      <div>
+        <p class="eyebrow">{es ? 'Disponible en todos los sets' : 'Available for every set'}</p>
+        <h2 class="d-l">Korean <span class="gold">UV LED</span></h2>
+        <p class="lead">{es ? 'Lo más novedoso de Corea, ahora en Tijuana.' : 'The newest from Korea, now in Tijuana.'} {UV_LED.duracion[lang]} {UV_LED.disponible[lang]}</p>
+        <ul class="ticks">{UV_LED.beneficios.map((b) => <li>{b[lang]}</li>)}</ul>
+        <div class="btn-row">
+          <a class="btn btn--gold" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.book}</a>
+          <a class="btn btn--ghost" href={wa(t.waService('Korean UV LED'))} target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>{t.askWa}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KOREAN LASH LIFT -->
+  <section class="sec bg-cream" id="lash-lift">
+    <div class="wrap feature">
+      <div class="feature__media" data-reveal>
+        <Image src={LASH_LIFT.img} alt={es ? 'Korean Lash Lift en Tijuana' : 'Korean Lash Lift in Tijuana'} widths={[480, 760]} sizes="(min-width: 900px) 45vw, 100vw" />
+      </div>
+      <div>
+        <p class="eyebrow">{es ? 'Para tus pestañas naturales' : 'For your natural lashes'}</p>
+        <h2 class="d-l">Korean <span class="gold">Lash Lift</span></h2>
+        <p class="lead">{LASH_LIFT.desc[lang]} {es ? 'Ideal si prefieres no usar extensiones.' : 'Ideal if you prefer not to wear extensions.'}</p>
+        <div class="pricebox">
+          <div class="price"><small>{es ? 'Lash lift + hidratación + tinte' : 'Lash lift + hydration + tint'}</small>{mxn(LASH_LIFT.precio)}</div>
+          <a class="btn" href={SITE.bookingUrl} target="_blank" rel="noopener" data-book>{t.bookShort}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">{es ? 'Tu cita paso a paso' : 'Your appointment, step by step'}</p>
+        <h2 class="d-l">{es ? <>Así es <span class="gold">tu cita</span></> : <>How it <span class="gold">works</span></>}</h2>
+      </div>
+      <ol class="steps">
+        <li data-reveal><h3>{es ? 'Agenda' : 'Book'}</h3><p>{es ? 'Elige fecha en línea o escríbenos por WhatsApp. Llega sin maquillaje en ojos.' : 'Pick a date online or message us on WhatsApp. Arrive without eye makeup.'}</p></li>
+        <li data-reveal style="--d:.08s"><h3>{es ? 'Diseño' : 'Design'}</h3><p>{es ? 'Sandy revisa la forma de tu ojo y ajusta el estilo para que te favorezca.' : 'Sandy checks your eye shape and adapts the style to flatter you.'}</p></li>
+        <li data-reveal style="--d:.16s"><h3>{es ? 'Aplicación' : 'Application'}</h3><p>{es ? 'Relájate mientras aplicamos tu set, con la opción de curado Korean UV LED.' : 'Relax while we apply your set, with optional Korean UV LED curing.'}</p></li>
+        <li data-reveal style="--d:.24s"><h3>{es ? 'Retoque' : 'Fill'}</h3><p>{es ? 'Regresa entre 15 y 21 días para mantener tus pestañas llenas.' : 'Come back within 15 to 21 days to keep your lashes full.'}</p></li>
+      </ol>
+      <div class="btn-row"><a class="link-arrow" href={r('cuidados', lang)}>{es ? 'Ver cuidados después de tu cita' : 'See aftercare tips'} <i class="bi bi-arrow-right"></i></a></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec bg-white">
+    <div class="wrap sec-head sec-head--split" style="align-items:start;margin-bottom:0">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2 class="d-l">{es ? <>Preguntas <span class="gold">frecuentes</span></> : <>Frequently <span class="gold">asked</span></>}</h2>
+        <div class="btn-row"><a class="btn btn--ghost" href={wa(t.waDefault)} target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i>{es ? '¿Otra duda?' : 'Other questions?'}</a></div>
+      </div>
+      <Faq items={FAQ_PESTANAS} lang={lang} />
+    </div>
+  </section>
+
+  <Visit lang={lang} />
+</SiteLayout>

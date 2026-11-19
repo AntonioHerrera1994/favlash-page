@@ -1,0 +1,129 @@
+---
+import '../styles/site.css';
+import Header from '../components/site/Header.astro';
+import Footer from '../components/site/Footer.astro';
+import MobileBar from '../components/site/MobileBar.astro';
+import { SITE } from '../config/site';
+import { ROUTES, UI, type Lang, type RouteKey } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  page: RouteKey;
+  title: string;
+  description: string;
+  image?: string;
+  jsonld?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const { lang, page, title, description, image = '/og-image.jpg', jsonld = [], noindex = false } = Astro.props;
+const t = UI[lang];
+const canonical = SITE.url + ROUTES[page][lang];
+const hasAlt = ROUTES[page].es !== ROUTES[page].en;
+const ogImage = new URL(image, SITE.url).href;
+
+const business = {
+  '@context': 'https://schema.org',
+  '@type': 'BeautySalon',
+  '@id': SITE.url + '/#salon',
+  name: SITE.name,
+  alternateName: 'FavLash',
+  url: SITE.url,
+  image: SITE.url + '/og-image.jpg',
+  logo: SITE.url + '/favicon2.svg',
+  telephone: SITE.phone,
+  email: SITE.email,
+  priceRange: '$50 – $1,550 MXN',
+  currenciesAccepted: 'MXN',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.city,
+    addressRegion: 'Baja California',
+    postalCode: SITE.address.postalCode,
+    addressCountry: SITE.address.country,
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: SITE.geo.lat, longitude: SITE.geo.lng },
+  hasMap: SITE.mapsLink,
+  areaServed: [
+    { '@type': 'City', name: 'Tijuana' },
+    { '@type': 'City', name: 'San Diego' },
+    { '@type': 'City', name: 'Chula Vista' },
+  ],
+  sameAs: Object.values(SITE.social),
+  founder: { '@type': 'Person', name: 'Sandy Herrera' },
+};
+const graphs = [business, ...jsonld];
+---
+
+<!doctype html>
+<html lang={lang === 'es' ? 'es-MX' : 'en-US'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    {!noindex && hasAlt && (
+      <>
+        <link rel="alternate" hreflang="es-MX" href={SITE.url + ROUTES[page].es} />
+        <link rel="alternate" hreflang="en-US" href={SITE.url + ROUTES[page].en} />
+        <link rel="alternate" hreflang="x-default" href={SITE.url + ROUTES[page].es} />
+      </>
+    )}
+    <meta name="geo.region" content="MX-BCN" />
+    <meta name="geo.placename" content="Tijuana" />
+    <meta name="geo.position" content={`${SITE.geo.lat};${SITE.geo.lng}`} />
+    <meta name="ICBM" content={`${SITE.geo.lat}, ${SITE.geo.lng}`} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_MX' : 'en_US'} />
+    {hasAlt && <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_MX'} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon2.svg" />
+    <meta name="theme-color" content="#141110" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Syne:wght@500..800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script type="application/ld+json" set:html={JSON.stringify(graphs.length === 1 ? graphs[0] : graphs)} />
+
+    <!-- Meta Pixel -->
+    <script is:inline>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init','1469227100802910');fbq('track','PageView');
+    </script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TRV4RC9SNF"></script>
+    <script is:inline>
+      window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TRV4RC9SNF');
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">{t.skip}</a>
+    <Header lang={lang} page={page} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <MobileBar lang={lang} />
+    <slot name="end" />
+    <script>
+      import '../scripts/site.js';
+    </script>
+  </body>
+</html>

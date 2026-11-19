@@ -1,32 +1,6 @@
 ---
-
-import Navbar from '../components/Navbar.astro';
-import Head from '../components/Head.astro';
-import Nosotros from '../components/Nosotros.astro';
-import Servicios from '../components/Servicios.astro';
-import Galeria from '../components/Galeria.astro';
-import Especiales from '../components/Especiales.astro';
-import Testimonios from '../components/Testimonios.astro';
-import Agenda from '../components/Agenda.astro';
-import Footer from '../components/Footer.astro';
-import Layout from '../layouts/Layout.astro';
-import PopUp from '../components/PopUp';
-import ImagePOp from '../assets/popupn.jpeg';
-
+import View from '../views/HomeView.astro';
+export const prerender = true;
 ---
 
-<Layout>
-	 <PopUp client:load>
-   
-    <a href="https://calendly.com/contacto-favlash/citas" target="_blank"><img src={ImagePOp.src} alt="Popup" /></a>
-  </PopUp>
-	<Navbar />
-	<Head />
-	<Nosotros />
-	<Servicios />
-	<Galeria />
-	<Especiales />
-	<Testimonios />
-	<Agenda />
-	<Footer />
-</Layout>
+<View lang="es" />

@@ -1,0 +1,26 @@
+---
+import { TESTIMONIOS } from '../../data/contenido';
+import type { Lang } from '../../i18n/routes';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+---
+<section class="sec bg-ink on-dark">
+  <div class="wrap">
+    <div class="sec-head sec-head--split">
+      <div>
+        <p class="eyebrow">{lang === 'es' ? 'Testimonios' : 'Reviews'}</p>
+        <h2 class="d-l">{lang === 'es' ? <>Lo que dicen <span class="gold">nuestras clientas</span></> : <>What our <span class="gold">clients say</span></>}</h2>
+      </div>
+      <p class="lead">{lang === 'es' ? 'Cada cita es personalizada. Esto es lo que más nos repiten al salir del estudio.' : 'Every appointment is personalized. This is what clients tell us on their way out.'}</p>
+    </div>
+    <div class="quotes">
+      {TESTIMONIOS.map((q, i) => (
+        <figure class="quote" data-reveal style={`--d:${i * 0.08}s`}>
+          <p>{q.text[lang]}</p>
+          <cite>— {q.name}</cite>
+        </figure>
+      ))}
+    </div>
+    {lang === 'en' && <p class="quote-note">Reviews translated from Spanish.</p>}
+  </div>
+</section>
