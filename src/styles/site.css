@@ -453,7 +453,7 @@ input[type='range']::-moz-range-thumb { width: 16px; height: 16px; border-radius
 .ftr ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
 .ftr a { text-decoration: none; }
 .ftr a:hover { color: #fff; }
-.ftr__logo { width: 190px; margin-bottom: 1.25rem; }
+.ftr__logo { width: 210px; height: auto; margin-bottom: 1.25rem; }
 .ftr__social { display: flex; gap: .5rem; margin-top: 1.25rem; }
 .ftr__social a { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line-l); display: grid; place-content: center; transition: background .2s, color .2s; }
 .ftr__social a:hover { background: #fff; color: var(--ink); }
